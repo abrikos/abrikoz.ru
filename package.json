@@ -1,0 +1,27 @@
+{
+  "name": "abrikoz-ru",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1",
+    "nuxt": "^4.4.5",
+    "nuxt-auth-utils": "^0.5.29",
+    "nuxt-mongoose": "1.1.2",
+    "nuxt-quasar-ui": "3.0.1",
+    "quasar": "^2.8.0",
+    "sass": "^1.99.0",
+    "vue": "^3.5.34",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "vite-plugin-pug": "^0.4.1"
+  }
+}
