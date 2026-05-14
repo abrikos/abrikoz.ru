@@ -14,7 +14,7 @@ services:
     environment:
       - NUXT_MONGOOSE_URI=mongodb://mongodb:27017/abrikoz
     ports:
-      - "9000:3000"
+      - "127.0.0.1:9000:3000"
     depends_on:
       - mongodb
 
