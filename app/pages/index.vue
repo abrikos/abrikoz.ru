@@ -5,7 +5,7 @@ function  setHeaders() {
     meta: [
       {name: 'description', content: "post.value.short"},
       {property: 'og:title', content: "post.value.title"},
-      // {property: 'og:image', content: post.value.poster},
+      {property: 'og:image', content: 'https://lh3.googleusercontent.com/a/ACg8ocJLK0U7VDBxmEgkvaKvWF8c3Y7i7itnMf33M1jAXVIYZg-B6b4K=s96-c'},
       // {property: 'og:type', content: 'article'},
       // {property: 'og:description', content: post.value.short},
     ],

@@ -6,7 +6,7 @@ router.get('/all', defineEventHandler(async (event) => {
     return Weather.find()
 }))
 
-Weather.find().then(console.log)
+//Weather.find().then(console.log)
 setInterval(async()=>{
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=62.0274078&lon=129.7319787&appid=${process.env.OPENWEATHER_API}&units=metric`
     const res = await fetch(url)

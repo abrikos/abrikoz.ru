@@ -1,11 +1,9 @@
-import {Post} from "#server/models/post";
-
 const router = createRouter()
 
 router.get('/all', defineEventHandler(async (event) => {
     //await Post.create({name:'========='})
     const session = await getUserSession(event)
-    console.log(session )
+    //console.log(session )
 
     return Post.find()
 }))
