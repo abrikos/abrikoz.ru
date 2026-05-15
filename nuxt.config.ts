@@ -16,7 +16,7 @@ export default defineNuxtConfig({
             ]
         },
         server: {
-            allowedHosts: ['abrikoz.ru']
+            allowedHosts: ['abrikoz.ru', 'abrikozz.ru']
         }
     },
     quasar:{

@@ -12,9 +12,10 @@ const { loggedIn, user, session, fetch, clear, openInPopup } = useUserSession()
   q-btn(to="/post-add" icon="mdi-plus")
   router-link(to="/about") About
   a(href="/api/auth/github" v-if="!loggedIn") Login with GitHub
+
   q-btn(label="Logout" @click="clear" v-else)
-    template(v-slot:prepend)
-      div zzzz
+
+  a(href="/api/auth/google" ) Login with Google
   hr
   NuxtPage
 </template>
