@@ -1,5 +1,5 @@
 <template lang="pug">
-  NuxtLayout
+  div NuxtLayout
 
 </template>
 <script setup lang="ts">
