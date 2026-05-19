@@ -13,6 +13,7 @@ export default defineNuxtConfig({
             include: [
                 '@vue/devtools-core',
                 '@vue/devtools-kit',
+                'vue3-apexcharts',
             ]
         },
         server: {
