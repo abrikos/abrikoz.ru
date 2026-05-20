@@ -9,10 +9,12 @@ const chartData = computed(()=>{
     }]
   }
 })
+
+
 </script>
 
 <template lang="pug">
-  div
+  div(v-if="data")
       BarChart(:data="{x:data.map(d=>d.date), y:data.map(d=>d.temperature), title:'Temperature'}")
       BarChart(:data="{x:data.map(d=>d.date), y:data.map(d=>d.pressure - 900), title:'Pressure'}")
       BarChart(:data="{x:data.map(d=>d.date), y:data.map(d=>d.wind_speed), title:'Wind'}")

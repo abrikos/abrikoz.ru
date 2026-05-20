@@ -10,6 +10,7 @@ const menuItems = computed(() => {
   return [
     {title: 'Home', caption: '', icon: 'mdi-home', link: '/', show: true},
     {title: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather', show: true},
+    {title: 'Add post', icon: 'mdi-pencil', link: '/post-add', show: !!user.value},
   ]
 })
 
@@ -26,8 +27,22 @@ async function login(provider:string){
   q-layout(view="hHh Lpr lff")
     q-header(reveal)
       q-toolbar
+        q-btn(flat @click="drawerLeft=!drawerLeft" round dense icon="mdi-menu" )
+        q-space
+        q-item
+          q-item-section
+            q-btn(label="Logout" @click="clear" v-if="loggedIn" flat)
+              user-card(:user="user" )
+            q-btn(label="Login" flat v-else)
+              q-menu
+                q-list
+                  q-item(clickable v-close-popup href="/api/auth/github")
+                    q-item-section Login with GitHub
+                  q-item(clickable v-close-popup href="/api/auth/google")
+                    q-item-section Login with Google
+
     q-footer Footer
-    q-drawer(v-model="drawerLeft" :breakpoint="700" bordered)
+    q-drawer(v-model="drawerLeft")
       q-list
         q-item(v-for="item in menuItems.filter(i=>i.show)" clickable tag="a"  :to="item.link")
           q-item-section(avatar)
@@ -36,17 +51,6 @@ async function login(provider:string){
             q-item-label {{ item.title }}
             q-item-label( caption) {{ item.caption }}
 
-        q-item
-          q-item-section
-            q-btn(label="Logout" @click="clear" v-if="loggedIn")
-              user-card(:user="user" )
-            q-btn(label="Login" v-else)
-              q-menu
-                q-list
-                  q-item(clickable v-close-popup href="/api/auth/github")
-                    q-item-section Login with GitHub
-                  q-item(clickable v-close-popup href="/api/auth/google")
-                    q-item-section Login with Google
 
     //q-drawer(v-model="drawerRight" side="right" :breakpoint="500" bordered)
       q-scroll-area.fit DR right
