@@ -10,7 +10,7 @@ const menuItems = computed(() => {
   return [
     {title: 'Home', caption: '', icon: 'mdi-home', link: '/', show: true},
     {title: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather', show: true},
-    {title: 'Add post', icon: 'mdi-pencil', link: '/post-add', show: !!user.value},
+    {title: 'Add post', icon: 'mdi-pencil', link: '/post/create', show: !!user.value},
   ]
 })
 
@@ -31,8 +31,13 @@ async function login(provider:string){
         q-space
         q-item
           q-item-section
-            q-btn(label="Logout" @click="clear" v-if="loggedIn" flat)
+            q-btn(v-if="loggedIn" flat)
               user-card(:user="user" )
+              q-menu
+                q-list
+                  q-item(clickable v-close-popup @click="clear" )
+                    q-item-section Logout
+
             q-btn(label="Login" flat v-else)
               q-menu
                 q-list
