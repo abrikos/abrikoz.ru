@@ -23,7 +23,7 @@ const { data } = await useFetch('/api/blog/all')
 </script>
 
 <template lang="pug">
-div GOGOG {{data}}
+div {{data}}
 </template>
 
 <style scoped lang="sass">

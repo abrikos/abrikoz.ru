@@ -22,7 +22,9 @@ services:
       - mongodb
 
   cron:
-    build: ./cron
+    build:
+      context: .
+      dockerfile: ./cron/Dockerfile
     depends_on:
       - nuxt
 
