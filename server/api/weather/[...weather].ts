@@ -16,6 +16,7 @@ async function fetchWeather(){
     const w = await Weather.create({temperature: data.main.temp, pressure: data.main.grnd_level, wind_direction: data.wind.deg, wind_speed: data.wind.speed})
     console.log(w)
     await Weather.deleteMany({createdAt: {$lte: moment().subtract(15, 'days').toDate()}})
+    return [1,2,3]
 }
 
 router.get('/fetch', defineEventHandler(fetchWeather))
