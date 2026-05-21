@@ -18,6 +18,7 @@ async function fetchWeather(){
     await Weather.deleteMany({createdAt: {$lte: moment().subtract(15, 'days').toDate()}})
 }
 
+router.get('/fetch', defineEventHandler(fetchWeather))
 //fetchWeather()
 //Weather.find().then(console.log)
 //setInterval(fetchWeather, 3600000)
