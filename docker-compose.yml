@@ -21,6 +21,11 @@ services:
     depends_on:
       - mongodb
 
+  cron:
+    build: ./cron
+    depends_on:
+      - nuxt
+
 volumes:
   mongo-data:
     driver: local
