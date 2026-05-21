@@ -20,5 +20,5 @@ async function fetchWeather(){
 
 //fetchWeather()
 //Weather.find().then(console.log)
-setInterval(fetchWeather, 3600000)
+//setInterval(fetchWeather, 3600000)
 export default useBase('/api/weather', router.handler)

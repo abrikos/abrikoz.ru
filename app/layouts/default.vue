@@ -24,7 +24,7 @@ async function login(provider:string){
 
 <template lang="pug">
   q-ajax-bar(ref="bar" position="bottom" skip-hijack)
-  q-layout(view="hHh Lpr lff")
+  q-layout(view="hHh lpR lff")
     q-header(reveal)
       q-toolbar
         q-btn(flat @click="drawerLeft=!drawerLeft" round dense icon="mdi-menu" )
@@ -47,14 +47,15 @@ async function login(provider:string){
                     q-item-section Login with Google
 
     q-footer Footer
-    q-drawer(v-model="drawerLeft")
-      q-list
-        q-item(v-for="item in menuItems.filter(i=>i.show)" clickable tag="a"  :to="item.link")
-          q-item-section(avatar)
-            q-icon(:name="item.icon" color="blue" )
-          q-item-section
-            q-item-label {{ item.title }}
-            q-item-label( caption) {{ item.caption }}
+    client-only
+      q-drawer(v-model="drawerLeft")
+        q-list
+          q-item(v-for="item in menuItems.filter(i=>i.show)" clickable tag="a"  :to="item.link")
+            q-item-section(avatar)
+              q-icon(:name="item.icon" color="blue" )
+            q-item-section
+              q-item-label {{ item.title }}
+              q-item-label( caption) {{ item.caption }}
 
 
     //q-drawer(v-model="drawerRight" side="right" :breakpoint="500" bordered)
