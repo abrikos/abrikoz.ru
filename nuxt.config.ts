@@ -1,9 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    // app:{
+    //     head:{
+    //         link:[
+    //             {rel:'stylesheet',href:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', integrity:'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=', crossorigin:''},
+    //         ],
+    //         script:[
+    //             {src:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', integrity:'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=', crossorigin:''}
+    //         ]
+    //     }
+    // },
     compatibilityDate: '2025-07-15',
     ssr: true,
     devtools: {enabled: true},
-    modules: ['nuxt-mongoose', 'nuxt-quasar-ui', 'nuxt-auth-utils','@pinia/nuxt'],
+    modules: ['nuxt-mongoose', 'nuxt-quasar-ui', 'nuxt-auth-utils','@pinia/nuxt', '@nuxtjs/leaflet'],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
     //     modelsDir: 'models', // Default directory for auto-importing schemas

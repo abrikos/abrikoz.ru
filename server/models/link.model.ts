@@ -7,6 +7,7 @@ export const LinkModel = defineMongooseModel('Link', {
     ogTitle: {type: String},
     ogDescription: {type: String},
     ogImage: {type: String},
+    coordinates: {type: [Number]},
     hidden: {type: Boolean, default: false},
     url: {type: String},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},

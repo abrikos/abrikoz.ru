@@ -43,9 +43,13 @@ const tab =ref()
   q-tabs(active-color="primary" inactive-color="primary" v-model="tab" )
     q-route-tab(to="/links-all" label="All" @click="refreshTotal" name="all")
     q-route-tab(to="/links-my" label="My" @click="refreshTotal"  name="my" v-if="loggedIn")
+    q-route-tab(to="/links-map" label="Map" name="map")
     q-route-tab(to="/links-add" label="Add" name="add" v-if="loggedIn")
 
 
+
+  div(v-if="route.params.action == 'map'")
+    link-map
 
   div.flex(v-if="route.params.action == 'my'")
     link-card(v-for="link in myLinks" :item="link" :refresh="refreshMy")
