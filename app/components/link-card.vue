@@ -28,9 +28,9 @@ const linkToMapDialog = ref(false)
 <template lang="pug">
   q-card.column.no-wrap.q-ma-sm(style="width: 400px; height:400px" v-if="link")
     q-card-section(style="word-break: break-word; overflow-y:scroll")
+      q-img(:src="link.ogImage")
       div.text-h6 {{ link.title }}
         q-icon(name="mdi-map" v-if="link.coordinates.length" color="green" )
-      q-img(:src="link.ogImage")
       div.text-subtitle2 {{ link.ogDescription || link.description }}
       a(:href="link.url" target="_blank" rel="noopener noreferrer") {{link.url}}
 
