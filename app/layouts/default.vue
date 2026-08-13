@@ -2,7 +2,7 @@
 import {useLoaderStore} from "~/stores/loader";
 
 const {loading} = storeToRefs(useLoaderStore())
-const {loggedIn, user, session, fetch, clear, openInPopup} = useUserSession()
+const {loggedIn, user, session, clear} = useUserSession()
 // console.log('1', loggedIn.value)
 // console.log('2', user.value)
 const drawerLeft = ref(true)
@@ -68,7 +68,7 @@ async function login(provider:string){
     //q-drawer(v-model="drawerRight" side="right" :breakpoint="500" bordered)
       q-scroll-area.fit DR right
     q-page-container
-      q-page
+      q-page {{loggedIn}}
         NuxtPage
 </template>
 

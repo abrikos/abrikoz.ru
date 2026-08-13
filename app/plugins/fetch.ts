@@ -20,6 +20,16 @@ export default defineNuxtPlugin((_nuxtApp) => {
     const apiPath = '/api'
     return {
         provide: {
+            async GET(path: string) {
+                setTrue()
+                //await new Promise(resolve => setTimeout(resolve, 5000));
+                if (debug) console.log('GET', path);
+                const res = await $fetch(apiPath + path)
+                    .catch(onError)
+                if (res && debug && showResponse) console.log('GET response:', path, res)
+                setFalse()
+                return res
+            },
             async POST(path: string, body?: any) {
                 setTrue()
                 //await new Promise(resolve => setTimeout(resolve, 5000));
@@ -28,7 +38,6 @@ export default defineNuxtPlugin((_nuxtApp) => {
                     .catch(onError)
                 if (res && debug && showResponse) console.log('POST response:', path, res)
                 setFalse()
-
                 return res
             },
         }
