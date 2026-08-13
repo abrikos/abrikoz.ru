@@ -1,7 +1,9 @@
 import { Notify } from 'quasar'
+import {useLoaderStore} from "~/stores/loader";
 
 export default defineNuxtPlugin((_nuxtApp) => {
-    //const config = useRuntimeConfig()
+    const loaderStore = useLoaderStore()
+    const {setTrue, setFalse} = loaderStore
 
     function onError(e: any) {
         Notify.create({
@@ -19,11 +21,14 @@ export default defineNuxtPlugin((_nuxtApp) => {
     return {
         provide: {
             async POST(path: string, body?: any) {
+                setTrue()
                 //await new Promise(resolve => setTimeout(resolve, 5000));
                 if (debug) console.log('POST', path, body);
                 const res = await $fetch(apiPath + path, {method: 'POST', body})
                     .catch(onError)
                 if (res && debug && showResponse) console.log('POST response:', path, res)
+                setFalse()
+
                 return res
             },
         }

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     ssr: true,
     devtools: {enabled: true},
-    modules: ['nuxt-mongoose', 'nuxt-quasar-ui', 'nuxt-auth-utils',],
+    modules: ['nuxt-mongoose', 'nuxt-quasar-ui', 'nuxt-auth-utils','@pinia/nuxt'],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
     //     modelsDir: 'models', // Default directory for auto-importing schemas

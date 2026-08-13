@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import {useLoaderStore} from "~/stores/loader";
+
+const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, fetch, clear, openInPopup} = useUserSession()
 // console.log('1', loggedIn.value)
 // console.log('2', user.value)
@@ -24,7 +27,8 @@ async function login(provider:string){
 
 
 <template lang="pug">
-  q-ajax-bar(ref="bar" position="bottom" skip-hijack)
+  q-linear-progress#progress(color="orange" indeterminate v-if="loading" )
+  q-ajax-bar(ref="loader" position="bottom" skip-hijack)
   q-layout(view="hHh lpR lff")
     q-header(reveal)
       q-toolbar
@@ -69,4 +73,9 @@ async function login(provider:string){
 </template>
 
 <style scoped lang="sass">
+#progress
+  position: absolute
+  height: 10px
+  z-index: 100000000
+
 </style>
