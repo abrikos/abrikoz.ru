@@ -14,12 +14,11 @@ const menuItems = computed(() => {
     {title: 'Home', caption: '', icon: 'mdi-home', link: '/', show: true},
     {title: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather', show: true},
     {title: 'Add post', icon: 'mdi-pencil', link: '/post/create', show: !!user.value},
-    {title: 'Links', icon: 'mdi-link-edit', link: '/links-all', show: !!user.value},
-    {title: 'Maps', icon: 'mdi-map', link: '/maps-view', show: true},
+    {title: 'Links', icon: 'mdi-link-edit', link: '/links-all', show: true},
   ]
 })
 
-async function login(provider:string){
+async function login(provider: string) {
   const {data} = await $fetch(`/api/auth/${provider}`)
   console.log(data)
 }

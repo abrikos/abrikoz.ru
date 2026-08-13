@@ -36,7 +36,7 @@ const linkToMapDialog = ref(false)
 
     q-card-actions.q-mt-auto.flex.justify-between
       q-btn(icon="mdi-map-search" v-if="link.coordinates.length" size="sm" :to="{path:'/links-map', query:{id:item.id}}")
-      span(v-if="user.id === link.user" )
+      span(v-if="user?.id === link.user" )
         q-btn(icon="mdi-map" size="sm" @click="linkToMap=link;linkToMapDialog=true")
         button-confirm(icon="mdi-delete" size="sm" color="red" message="Delete link" :route="`/link-remove?id=${link.id}`" :action="refresh")
         q-toggle(v-model="link.hidden" @update:model-value="changeHidden" label="Hidden" size="sm" )
