@@ -68,7 +68,7 @@ async function login(provider:string){
     //q-drawer(v-model="drawerRight" side="right" :breakpoint="500" bordered)
       q-scroll-area.fit DR right
     q-page-container
-      q-page {{loggedIn}}
+      q-page
         NuxtPage
 </template>
 
