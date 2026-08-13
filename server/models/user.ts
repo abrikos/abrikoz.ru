@@ -1,11 +1,10 @@
 import {defineMongooseModel} from '#nuxt/mongoose'
-import * as mongoose from "mongoose";
 
 
 export const User = defineMongooseModel({
     name: 'User',
     schema:{
-        login: {type: String},
+        username: {type: String},
         email: {type: String},
         avatar_url: {type: String},
         picture: {type: String},
@@ -20,7 +19,7 @@ export const User = defineMongooseModel({
     },
     hooks(schema) {
         schema.virtual('displayName').get(function () {
-            return this.name || this.login
+            return this.name || this.username
         })
 
         schema.virtual('avatar').get(function () {

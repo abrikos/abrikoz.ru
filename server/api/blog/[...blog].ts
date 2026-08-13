@@ -1,19 +1,14 @@
 const router = createRouter()
 
-router.get('/all', defineEventHandler(async (event) => {
-    //await Post.create({name:'========='})
-    const session = await getUserSession(event)
-    //console.log(session )
-
+router.get('/all', defineEventHandler(async () => {
     return Post.find()
 }))
 
 router.post('/post', defineEventHandler(async (event) => {
     const {user} = await getUserSession(event)
-    if(!user) throw createError({statusCode: 403, message: 'Доступ запрещён'})
+    if (!user) throw createError({status: 403, message: 'Доступ запрещён'})
     const body = await readBody(event)
-    body.user = user.login
-    return Post.create(body)
+    return Post.create({user, ...body})
 }))
 
 export default useBase('/api/blog', router.handler)

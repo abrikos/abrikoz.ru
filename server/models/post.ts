@@ -1,11 +1,12 @@
 import {defineMongooseModel} from '#nuxt/mongoose'
+import mongoose from "mongoose";
 
 export const Post = defineMongooseModel('Post', {
     title: {type: String, required: true},
     short: {type: String, required: true},
     poster: {type: String},
     text: {type: String},
-    user: {type: String},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
 
 }, {
     timestamps: {createdAt: 'createdAt'},

@@ -23,7 +23,7 @@ const { data } = await useFetch('/api/blog/all')
 </script>
 
 <template lang="pug">
-div {{data}}
+div INDEX
 </template>
 
 <style scoped lang="sass">
