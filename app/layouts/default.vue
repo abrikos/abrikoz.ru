@@ -11,6 +11,7 @@ const menuItems = computed(() => {
     {title: 'Home', caption: '', icon: 'mdi-home', link: '/', show: true},
     {title: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather', show: true},
     {title: 'Add post', icon: 'mdi-pencil', link: '/post/create', show: !!user.value},
+    {title: 'Links', icon: 'mdi-link-edit', link: '/links-view', show: !!user.value},
   ]
 })
 
