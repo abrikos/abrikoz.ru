@@ -45,6 +45,8 @@ async function login(provider:string){
                     q-item-section Login with GitHub
                   q-item(clickable v-close-popup href="/api/auth/google")
                     q-item-section Login with Google
+                  q-item(clickable v-close-popup href="/api/auth/yandex")
+                    q-item-section Login with Yandex
 
     q-footer Footer
     client-only
