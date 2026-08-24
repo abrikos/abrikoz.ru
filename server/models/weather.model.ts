@@ -6,14 +6,11 @@ interface IWeather {
     pressure: number;
     wind_speed: number;
     wind_direction: number;
-}
-
-interface ITimestamps {
     createdAt: Date;
     updatedAt: Date;
 }
 
-export const Weather = defineMongooseModel<IWeather & ITimestamps>({
+export const WeatherModel = defineMongooseModel<IWeather>({
     name: 'Weather',
     schema: {
         temperature: {type: Number, required: true},

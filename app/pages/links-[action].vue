@@ -5,7 +5,7 @@ const {data:allLinks, refresh:refreshAll} = await useFetch('/api/link-list')
 const {data:myLinks, refresh:refreshMy} = await useFetch('/api/link-my')
 const route = useRoute()
 const router = useRouter()
-const newLink = ref({url: '', hidden: false})
+const newLink = ref({url: 'https://vk.ru/wall-205394206_36674', hidden: false})
 const linkModel = ref()
 
 async function addLink() {

@@ -2,10 +2,18 @@
 const {loggedIn, user} = useUserSession()
 const route = useRoute()
 const post = defineModel()
-console.log('zzzzzz', post.value)
+
 const $q = useQuasar()
+function onSubmit(){
+  console.log(post.value)
+}
+function onReset(){
 
+}
 
+function upload(){
+
+}
 </script>
 
 <template lang="pug">
@@ -37,7 +45,7 @@ const $q = useQuasar()
           q-card-actions.flex.justify-between
             q-btn(type="submit" color="primary" :flat="false" :label="route.params.id ? 'Save':'Create'")
             q-btn(type="reset" :flat="false" label="Reset" v-if="route.params.id")
-      q-file(v-model="poster" @update:model-value="upload" label="Upload images" multiple)
+      q-file(v-model="post.poster" @update:model-value="upload" label="Upload images" multiple)
       div.images.flex
         div.q-pa-sm(v-for="image of post.images")
           div.image.flex.items-center

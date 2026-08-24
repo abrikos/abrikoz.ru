@@ -3,16 +3,12 @@ function  setHeaders() {
   useHead({
     title: "Abrikos HP",
     meta: [
-      {name: 'description', content: "Home page of Abrikos"},
-      {property: 'og:title', content: "Home page of Abrikos"},
+      {name: 'description', content: "Home page of Abrikos site"},
+      {property: 'og:title', content: "Home page of Abrikos site"},
       {property: 'og:image', content: 'https://abrikoz.ru/logo.svg'},
-      // {property: 'og:type', content: 'article'},
-      // {property: 'og:description', content: post.value.short},
-    ],
-    bodyAttrs: {
-      class: 'test',
-    },
-    script: [{innerHTML: 'console.log(\'Hello world\')'}],
+      {property: 'og:type', content: 'website'},
+      {property: 'og:description', content: 'Home page of my site'},
+    ]
   })
 }
 setHeaders()

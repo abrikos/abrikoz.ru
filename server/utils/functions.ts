@@ -11,9 +11,8 @@ export async function getSeoMeta(url: string) {
         const html = await $fetch<string>(url, {
             headers: {'User-Agent': 'Mozilla/5.0 (Compatible; NuxtSEOBot/1.0)'}
         })
-
         // 3. Parse HTML string using linkedom
-        const {document} = parseHTML(html)
+        const {document} = parseHTML(html) as any
 
         // Helper function to pull content by meta attribute
         const getMeta = (query: string) => document.querySelector(query)?.getAttribute('content') || null

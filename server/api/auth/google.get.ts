@@ -2,7 +2,7 @@
 
 export default defineOAuthGoogleEventHandler({
     async onSuccess(event, {user}) {
-        const loggedUser = await User.findOneAndUpdate({email: user.email}, {$set: user}, {
+        const loggedUser = await UserModel.findOneAndUpdate({email: user.email}, {$set: user}, {
             upsert: true,
             returnDocument: 'after'
         })

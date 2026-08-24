@@ -5,6 +5,7 @@ export default defineNuxtConfig({
             link:[
                 {rel:'icon',href:'/logo.svg', sizes:'32x32'},
             ],
+            title:"Abrikos site"
         }
     },
     compatibilityDate: '2025-07-15',

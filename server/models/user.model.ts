@@ -1,10 +1,10 @@
 import {defineMongooseModel} from '#nuxt/mongoose'
 
 
-export const User = defineMongooseModel({
+export const UserModel = defineMongooseModel({
     name: 'User',
     schema:{
-        username: {type: String},
+        username: {type: String} as any,
         email: {type: String},
         avatar_url: {type: String},
         picture: {type: String},
