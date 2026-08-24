@@ -1,22 +1,14 @@
 import {defineMongooseModel} from '#nuxt/mongoose'
 import moment from 'moment'
 
-interface IWeather {
-    temperature: number;
-    pressure: number;
-    wind_speed: number;
-    wind_direction: number;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export const WeatherModel = defineMongooseModel<IWeather>({
+export const WeatherModel = defineMongooseModel({
     name: 'Weather',
     schema: {
         temperature: {type: Number, required: true},
         pressure: {type: Number, required: true},
         wind_speed: {type: Number},
         wind_direction: {type: Number},
+        createdAt: Date
     },
     options: {
         timestamps: true,
@@ -27,7 +19,7 @@ export const WeatherModel = defineMongooseModel<IWeather>({
     },
     hooks(schema) {
         schema.virtual('date').get(function () {
-            return  moment(this.createdAt).format('YYYY-MM-DD HH:mm:ss')
+            return  moment(this.createdAt as any).format('YYYY-MM-DD HH:mm:ss')
         })
     }
 })

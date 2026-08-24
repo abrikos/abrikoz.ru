@@ -10,7 +10,8 @@ export const PostModel = defineMongooseModel({
         poster: {type: String},
         text: {type: String},
         user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-        createdAt: Date
+        createdAt: Date,
+        published: Boolean as any
     },
     options:{
         timestamps: {createdAt: 'createdAt'},
