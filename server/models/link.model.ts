@@ -2,7 +2,7 @@ import {defineMongooseModel} from '#nuxt/mongoose'
 import mongoose from "mongoose";
 
 export const LinkModel = defineMongooseModel({
-    name:'Link',
+    name:'link',
     schema: {
         title: {type: String},
         description: {type: String},

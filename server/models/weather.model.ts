@@ -2,7 +2,7 @@ import {defineMongooseModel} from '#nuxt/mongoose'
 import moment from 'moment'
 
 export const WeatherModel = defineMongooseModel({
-    name: 'Weather',
+    name: 'weather',
     schema: {
         temperature: {type: Number, required: true},
         pressure: {type: Number, required: true},

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import moment from "moment";
 
 export const PostModel = defineMongooseModel({
-    name:'Post',
+    name:'post',
     schema: {
         title: {type: String, required: true},
         short: {type: String, required: true},
