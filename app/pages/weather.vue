@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const {data} = useFetch('/api/weather/all')
+const {data} = await useFetch('/api/weather-list')
 const chartData = computed(()=>{
   return {
     labels:['a','b'],
