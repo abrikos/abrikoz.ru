@@ -3,9 +3,13 @@ const {loggedIn, user} = useUserSession()
 const route = useRoute()
 const post = defineModel()
 
-const $q = useQuasar()
-function onSubmit(){
-  console.log(post.value)
+async function onSubmit(){
+  if(!post.value?.id) {
+    const newPost = await useNuxtApp().$PUT(`/post-create`, post.value)
+    navigateTo(`/post-view-${newPost.id}`)
+  }else{
+    useNuxtApp().$POST(`/post?id=${post.value.id}`, post.value)
+  }
 }
 function onReset(){
 
@@ -21,7 +25,7 @@ function upload(){
     div.col-sm.q-pa-lg
       q-card
         q-form(@submit="onSubmit" @reset="onReset")
-          q-card-section
+          q-card-section {{post.title}}
             q-input(v-model="post.title" label="Title" :error="!post.title" error-message="Required")
             q-input(v-model="post.poster" label="Poster image url" hint="Place link for any image")
               template(v-slot:prepend)
@@ -45,7 +49,7 @@ function upload(){
           q-card-actions.flex.justify-between
             q-btn(type="submit" color="primary" :flat="false" :label="route.params.id ? 'Save':'Create'")
             q-btn(type="reset" :flat="false" label="Reset" v-if="route.params.id")
-      q-file(v-model="post.poster" @update:model-value="upload" label="Upload images" multiple)
+      //q-file(v-model="post.poster" @update:model-value="upload" label="Upload images" multiple)
       div.images.flex
         div.q-pa-sm(v-for="image of post.images")
           div.image.flex.items-center
@@ -57,7 +61,7 @@ function upload(){
               q-tooltip In text
 
     div.col-sm
-      router-link(:to="`/posts/${route.params.id}`") View Post
+      router-link(:to="`/post-view-${route.params.id}`") Go to post
       div.preview
         post-view(:post="post")
 

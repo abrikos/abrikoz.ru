@@ -5,7 +5,7 @@ const route = useRoute()
 const {data:allLinks} = await useFetch('/api/link-list')
 const defaultCenter = [47.21322, -1.559482]
 const centerLink = computed(()=>{
-  return allLinks.value.find(l=>l.id === route.query.id)
+  return allLinks.value?.find(l=>l.id === route.query.id)
 
 })
 
