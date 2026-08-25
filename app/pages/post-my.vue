@@ -4,7 +4,7 @@ useNuxtApp().hook('posts-load', refresh)
 </script>
 
 <template lang="pug">
-  div.flex
+  div.d-flex.flex-wrap.justify-center.ga-sm-8
     post-card(v-for="post in data" :post="post")
 </template>
 

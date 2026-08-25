@@ -10,16 +10,10 @@ const deletePost = async () => {
 </script>
 
 <template lang="pug">
-  div.flex.justify-between.items-center(:class="post.published? '':'bg-red-4'" v-if="user?.id === post?.user?.id")
-    q-btn(size="sm" icon="mdi-pencil" :to="`/post-edit-${post.id}`" flat)
+  div.pa-3.d-flex.justify-space-between.align-center(:class="post.published? '':'bg-red-lighten-4'" v-if="user?.id === post?.user?.id")
+    v-btn(size="sm" icon="mdi-pencil" :to="`/post-edit-${post.id}`")
     span(v-if="!post.published") Not published
-    q-btn(icon="mdi-delete" flat @click.stop :color="post.published? 'red':''")
-      q-tooltip Удалить "{{post.title}}"
-      q-popup-proxy(cover transition-show="scale" transition-hide="scale")
-        q-banner Удалить "{{post.title}}"?
-          br
-          q-btn( @click.stop="deletePost(post.id)" label="OK" v-close-popup color="negative" )
-          q-btn( @click.stop label="Отмена" v-close-popup)
+    v-btn(size="sm" icon="mdi-delete" flat @click.stop="deletePost(post.id)" :color="post.published? 'red':''")
 
 </template>
 
