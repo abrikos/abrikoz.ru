@@ -8,7 +8,7 @@ export const WeatherModel = defineMongooseModel({
         pressure: {type: Number, required: true},
         wind_speed: {type: Number},
         wind_direction: {type: Number},
-        createdAt: Date
+        createdAt: Date as any
     },
     options: {
         timestamps: true,

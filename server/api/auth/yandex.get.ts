@@ -6,7 +6,6 @@ export default defineOAuthYandexEventHandler({
             upsert: true,
             returnDocument: 'after'
         })
-        console.log(user)
         await setUserSession(event, {user: loggedUser})
         return sendRedirect(event, '/')
     }
