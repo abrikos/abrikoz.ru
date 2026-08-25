@@ -1,9 +1,8 @@
 export default defineEventHandler(async (event) => {
-    const {user} = await getUserSession(event)
-    if (!user) throw createError({status: 403, message: 'Доступ запрещён'})
+    const {user} = await getUserSession(event) as unknown as {user:{id:string}}
     const {id} = getQuery(event)
-    const post = await PostModel.findById(id).populate('user')
-    if( post?.user === user || post?.published){
+    const post = await PostModel.findById(id).populate('user')as unknown as {user:{id:string}, published:boolean}
+    if( post?.user.id === user?.id || post?.published){
         return post
     }
 

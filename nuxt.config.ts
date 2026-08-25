@@ -29,6 +29,7 @@ export default defineNuxtConfig({
         }
     },
     quasar:{
+        sassVariables: '~~/public/quazar.variables.sass',
         plugins:['Notify'],
         iconSet: 'mdi-v7',
     }

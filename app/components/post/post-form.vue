@@ -5,7 +5,7 @@ const post = defineModel()
 
 async function onSubmit(){
   if(!post.value?.id) {
-    const newPost = await useNuxtApp().$PUT(`/post-create`, post.value)
+    const newPost = await useNuxtApp().$PUT(`/post`, post.value)
     navigateTo(`/post-view-${newPost.id}`)
   }else{
     useNuxtApp().$POST(`/post?id=${post.value.id}`, post.value)
@@ -33,7 +33,7 @@ function upload(){
             q-input(v-model="post.short" label="Short" type="textarea"  filled autogrow  :error="!post.short" error-message="Required")
 
 
-            q-input(v-model="post.body" label="Body (accepts markdown syntax)" type="textarea" filled autogrow)
+            q-input(v-model="post.text" label="Body (accepts markdown syntax)" type="textarea" filled autogrow)
               template(v-slot:append)
 
                 q-icon(name="mdi-help")

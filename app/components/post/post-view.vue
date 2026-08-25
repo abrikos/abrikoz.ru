@@ -7,12 +7,15 @@ const {post} = defineProps<{ post: object }>()
 <template lang="pug">
 div.q-pa-lg
   h1 {{ post.title }}
-  div.bg-grey-4.q-pa-sm.flex
+  div.bg-grey-4.q-pa-sm.flex.justify-between.no-wrap
+    strong {{post.short}}
     div.q-mx-sm(v-if="post.poster")
       img.poster(:src="post.poster")
-    strong {{post.short}}
-  mark-down#mark-down(:text="post.body")
+
+  post-controls(:post="post")
+  mark-down#mark-down(:text="post.text")
   //p.body(v-html="post.markdown_body")
+
 </template>
 
 <style scoped lang="sass">
