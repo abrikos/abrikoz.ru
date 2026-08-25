@@ -9,11 +9,12 @@ const bar = ref()
 
 const menuItems = computed(() => {
   return [
-    {title: 'Home', caption: '', icon: 'mdi-home', link: '/'},
-    {title: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather'},
-    {title: 'Add post', icon: 'mdi-playlist-plus', link: '/post-create', hide: !user.value},
-    {title: 'My posts', icon: 'mdi-text-account', link: '/post-my', hide: !user.value},
-    {title: 'Links', icon: 'mdi-link-edit', link: '/links-all', hide: !user.value},
+    {label: 'Home', caption: '', icon: 'mdi-home', link: '/'},
+    {label: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather'},
+    {label: 'Add post', icon: 'mdi-playlist-plus', link: '/post-create', hide: !user.value},
+    {label: 'My posts', icon: 'mdi-text-account', link: '/post-my', hide: !user.value},
+    {label: 'Links', icon: 'mdi-link-edit', link: '/links-all', hide: !user.value},
+    {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
   ].filter(i=>!i.hide)
 })
 
@@ -27,9 +28,35 @@ async function login(provider: string) {
 
 
 <template lang="pug">
-  q-linear-progress#progress(color="orange" indeterminate v-if="loading" )
-  q-ajax-bar(ref="loader" position="bottom" skip-hijack)
-  q-layout(view="hHh lpR lff")
+  div.common-layout
+    v-app
+      v-progress-linear(indeterminate v-if="loading" )
+      v-app-bar
+        template(v-slot:prepend)
+          v-app-bar-nav-icon
+        v-app-bar-title Abrikos HP
+        v-btn(v-for="item in menuItems" :to="item.link") {{ item.label }}
+        v-spacer
+        v-menu(v-if="user")
+          template(v-slot:activator="{props}")
+            user-card(:user="user" v-bind="props")
+          v-card.mt-2
+            v-list
+              v-list-item(title="Logout" @click="clear")
+        v-menu(v-else)
+          template(v-slot:activator="{props}")
+            v-btn(v-bind="props") Login
+          v-card.mt-2
+            v-list
+              v-list-item(title="Github" @click="login('github')")
+              v-list-item(title="Google" @click="login('google')")
+              v-list-item(title="Yandex" @click="login('yandex')")
+
+      v-main
+        v-container(fluid)
+          NuxtPage
+
+  //div
     q-header(reveal)
       q-toolbar
         q-btn(flat @click="drawerLeft=!drawerLeft" round dense icon="mdi-menu" )
@@ -61,7 +88,7 @@ async function login(provider: string) {
             q-item-section(avatar)
               q-icon(:name="item.icon" color="blue" )
             q-item-section
-              q-item-label {{item.title}}
+              q-item-label {{item.label}}
               q-item-label( caption) {{item.caption}}
 
 

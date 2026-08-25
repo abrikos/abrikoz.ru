@@ -4,18 +4,41 @@ export default defineNuxtConfig({
         head:{
             link:[
                 {rel:'icon',href:'/logo.svg', sizes:'32x32'},
+                //{rel:'stylesheet',href:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'},
             ],
-            title:"Abrikos site"
+            script:[
+                //{src:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'},
+            ],
+            title:"Abrikos site",
+
+
         }
     },
     compatibilityDate: '2025-07-15',
     ssr: true,
     devtools: {enabled: true},
-    modules: ['nuxt-mongoose', 'nuxt-quasar-ui', 'nuxt-auth-utils','@pinia/nuxt', '@nuxtjs/leaflet'],
+    modules: [
+      'nuxt-mongoose',
+      'nuxt-auth-utils',
+      '@pinia/nuxt',
+      '@nuxtjs/leaflet',
+      'vuetify-nuxt-module'
+    ],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
     //     modelsDir: 'models', // Default directory for auto-importing schemas
     // },
+    vuetify: {
+        moduleOptions: {
+            prefixComposables: true
+        },
+        vuetifyOptions: {
+            icons: {
+                defaultSet: 'mdi',
+                sets: ['mdi', 'fa']
+            }
+        }
+    },
     vite: {
         optimizeDeps: {
             include: [
@@ -27,11 +50,6 @@ export default defineNuxtConfig({
         server: {
             allowedHosts: ['abrikoz.ru', 'abrikozz.ru']
         }
-    },
-    quasar:{
-        sassVariables: '~~/public/quazar.variables.sass',
-        plugins:['Notify'],
-        iconSet: 'mdi-v7',
     },
     runtimeConfig: {
         session: {
