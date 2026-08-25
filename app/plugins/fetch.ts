@@ -1,17 +1,16 @@
-import {Notify} from 'quasar'
 import {useLoaderStore} from "~/stores/loader";
 
 export default defineNuxtPlugin((_nuxtApp) => {
     const loaderStore = useLoaderStore()
     const {setTrue, setFalse} = loaderStore
+    const toast = useToast()
 
     function onError(e: any) {
-        Notify.create({
-            message: 'Ошибка',
-            caption: e.status + ':' + (e.response._data.message || e.response._data),
-            icon: 'mdi-alert-circle',
-            color: 'red',
+        toast.error({
+            title: 'HTTP rror',
+            message: e.status + ':' + (e.response._data.message || e.response._data),
             position: 'center',
+            layout: 1
         })
     }
 
