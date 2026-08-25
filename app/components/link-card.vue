@@ -18,7 +18,8 @@ async function setPoint() {
   await useNuxtApp().$POST('/link-point', item)
   refresh && refresh()
   clickPoint.value = null
-  linkToMapDialog.value = false
+  linkToMap.value = item
+  //linkToMapDialog.value = false
 }
 
 const linkToMap = ref()

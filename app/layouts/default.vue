@@ -3,7 +3,6 @@ import {useLoaderStore} from "~/stores/loader";
 
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
-console.log(session.value)
 const drawerLeft = ref(true)
 const drawerRight = ref(true)
 const bar = ref()
