@@ -10,7 +10,7 @@ const deletePost = async () => {
 </script>
 
 <template lang="pug">
-  div.flex.justify-between.items-center(:class="post.published? '':'bg-red-4'" v-if="user.id === post?.user?.id")
+  div.flex.justify-between.items-center(:class="post.published? '':'bg-red-4'" v-if="user?.id === post?.user?.id")
     q-btn(size="sm" icon="mdi-pencil" :to="`/post-edit-${post.id}`" flat)
     span(v-if="!post.published") Not published
     q-btn(icon="mdi-delete" flat @click.stop :color="post.published? 'red':''")

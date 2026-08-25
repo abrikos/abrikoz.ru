@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const route = useRoute()
-const {data:post} = await useFetch(`/api/post?id=${route.params.id}`)
+const post = ref()
+async function load(){
+  post.value = await useNuxtApp().$GET(`/post?id=${route.params.id}`)
+}
+onMounted(load)
+
 useHead({
   title: post.value?.title,
   meta: [
@@ -14,15 +19,7 @@ useHead({
 </script>
 
 <template lang="pug">
-  div.q-pa-lg(v-if="post" )
-    h1 {{ post.title }}
-    div.bg-grey-4.q-pa-sm.flex
-      div.q-mx-sm(v-if="post.poster")
-        img.poster(:src="post.poster")
-      strong {{post.short}}
-    mark-down#mark-down(:text="post.body")
-    post-controls(v-model="post")
-    //p.body(v-html="post.markdown_body")
+  post-view(:post="post" v-if="post")
 </template>
 
 <style scoped lang="sass">

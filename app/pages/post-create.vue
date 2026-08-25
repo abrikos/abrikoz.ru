@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const post = ref({})
+const post = ref({published:false})
 </script>
 
 <template lang="pug">

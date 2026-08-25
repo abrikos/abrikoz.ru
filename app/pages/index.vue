@@ -18,8 +18,8 @@ useHead({
 </script>
 
 <template lang="pug">
-  div(v-for="post in list" :key="post.id")
-    post-card(:post="post")
+  div.flex
+    post-card(v-for="post in list" :post="post")
 </template>
 
 <style scoped lang="sass">
