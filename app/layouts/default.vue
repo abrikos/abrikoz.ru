@@ -2,9 +2,8 @@
 import {useLoaderStore} from "~/stores/loader";
 
 const {loading} = storeToRefs(useLoaderStore())
-const {loggedIn, user, session, clear} = useUserSession()
-// console.log('1', loggedIn.value)
-// console.log('2', user.value)
+const {loggedIn, user, session, clear, openInPopup} = useUserSession()
+console.log(session.value)
 const drawerLeft = ref(true)
 const drawerRight = ref(true)
 const bar = ref()
@@ -19,9 +18,10 @@ const menuItems = computed(() => {
   ].filter(i=>!i.hide)
 })
 
+const router = useRouter()
 
 async function login(provider: string) {
-  await $fetch(`/api/auth/${provider}`)
+  openInPopup(`/api/auth/${provider}`,{width:600, height:600})
 }
 
 </script>
@@ -47,11 +47,11 @@ async function login(provider: string) {
             q-btn(label="Login" flat v-else)
               q-menu
                 q-list
-                  q-item(clickable v-close-popup href="/api/auth/github")
+                  q-item(clickable v-close-popup @click="login('github')")
                     q-item-section Login with GitHub
-                  q-item(clickable v-close-popup href="/api/auth/google" target="_blank")
+                  q-item(clickable v-close-popup @click="login('google')")
                     q-item-section Login with Google
-                  q-item(clickable v-close-popup href="/api/auth/yandex")
+                  q-item(clickable v-close-popup @click="login('yandex')")
                     q-item-section Login with Yandex
 
     q-footer Footer
