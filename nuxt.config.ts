@@ -32,6 +32,11 @@ export default defineNuxtConfig({
         sassVariables: '~~/public/quazar.variables.sass',
         plugins:['Notify'],
         iconSet: 'mdi-v7',
+    },
+    runtimeConfig: {
+        session: {
+            maxAge: 60 * 60 * 24 * 7 // 1 week
+        }
     }
     // routeRules: {
     //     // Generated at build time for SEO purpose
