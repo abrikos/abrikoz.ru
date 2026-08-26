@@ -26,7 +26,6 @@ async function login(provider: string) {
 
 </script>
 
-
 <template lang="pug">
   div.common-layout
     v-app
