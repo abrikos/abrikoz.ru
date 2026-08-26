@@ -9,7 +9,7 @@ const {post} = defineProps<{ post: object }>()
 </script>
 
 <template lang="pug">
-  v-card.w-25.q-ma-sm.bg-grey-lighten-1(v-if="post" :image="post.poster")
+  v-card.w-sm-25.ma-2.bg-grey-lighten-1(v-if="post" :image="post.poster")
     v-toolbar.d-flex.justify-space-between(color="transparent" )
       v-toolbar-title {{post.title}}
       user-card(:user="post.user")
