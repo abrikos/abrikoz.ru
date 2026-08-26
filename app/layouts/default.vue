@@ -42,7 +42,7 @@ async function login(provider: string) {
             user-card(:user="user" v-bind="props")
           v-card.mt-2
             v-list
-              v-list-item(title="Logout" @click="clear")
+              v-list-item(title="Logout" @click="clear" density="compact" )
         v-menu(v-else)
           template(v-slot:activator="{props}")
             v-btn(v-bind="props") Login

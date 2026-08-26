@@ -1,15 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    app:{
-        head:{
-            link:[
-                {rel:'icon',href:'/logo.svg', sizes:'32x32'},
+    app: {
+        head: {
+            link: [
+                {rel: 'icon', href: '/logo.svg', sizes: '32x32'},
                 //{rel:'stylesheet',href:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'},
             ],
-            script:[
+            script: [
                 //{src:'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'},
             ],
-            title:"Abrikos site",
+            title: "Abrikos site",
 
 
         }
@@ -18,16 +18,20 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: {enabled: true},
     modules: [
-      'nuxt-mongoose',
-      'nuxt-auth-utils',
-      '@pinia/nuxt',
-      '@nuxtjs/leaflet',
-      'vuetify-nuxt-module'
+        'nuxt-mongoose',
+        'nuxt-auth-utils',
+        '@pinia/nuxt',
+        '@nuxtjs/leaflet',
+        'vuetify-nuxt-module',
+        'nuxt-toast'
     ],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
     //     modelsDir: 'models', // Default directory for auto-importing schemas
     // },
+    build:{
+        transpile: ['vuetify'],
+    },
     vuetify: {
         moduleOptions: {
             prefixComposables: true
@@ -49,7 +53,7 @@ export default defineNuxtConfig({
         },
         server: {
             allowedHosts: ['abrikoz.ru', 'abrikozz.ru']
-        }
+        },
     },
     runtimeConfig: {
         session: {

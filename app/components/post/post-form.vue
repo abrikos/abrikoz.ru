@@ -21,22 +21,21 @@ function upload(){
 </script>
 
 <template lang="pug">
-  div.row.q-gutter-md(v-if="post")
-    div.col-sm.q-pa-lg
-      q-card
-        q-form(@submit="onSubmit" @reset="onReset")
-          q-card-section {{post.title}}
-            q-input(v-model="post.title" label="Title" :error="!post.title" error-message="Required")
-            q-input(v-model="post.poster" label="Poster image url" hint="Place link for any image")
+  div.d-flex(v-if="post")
+    div.w-50
+      v-card
+        v-form(@submit="onSubmit" @reset="onReset")
+          v-card-text
+            v-text-field(v-model="post.title" label="Title" required)
+            v-text-field(v-model="post.poster" label="Poster image url" hint="Place link for any image")
               template(v-slot:prepend)
-                q-icon(name="mdi-image")
-            q-input(v-model="post.short" label="Short" type="textarea"  filled autogrow  :error="!post.short" error-message="Required")
+                v-icon(icon="mdi-image")
+            v-textarea(v-model="post.short" label="Short" auto-grow)
 
 
-            q-input(v-model="post.text" label="Body (accepts markdown syntax)" type="textarea" filled autogrow)
+            v-textarea(v-model="post.text" label="Body (accepts markdown syntax)" auto-grow)
               template(v-slot:append)
-
-                q-icon(name="mdi-help")
+                v-icon(icon="mdi-help")
                   q-popup-proxy
                     q-banner
                       a(href="https://skillbox.ru/media/code/yazyk-razmetki-markdown-shpargalka-po-sintaksisu-s-primerami/" target="_blank") Markdown syntax
@@ -60,7 +59,7 @@ function upload(){
             q-btn(size="sm" icon="mdi-text" @click="addImage(image)")
               q-tooltip In text
 
-    div.col-sm
+    div.w-50
       router-link(:to="`/post-view-${route.params.id}`") Go to post
       div.preview
         post-view(:post="post")
