@@ -6,7 +6,7 @@ export const PostModel = defineMongooseModel({
     name:'post',
     schema: {
         title: {type: String, required: true},
-        short: {type: String, required: true},
+        short: {type: String},
         poster: {type: String},
         text: {type: String},
         user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},

@@ -9,27 +9,21 @@ const {post} = defineProps<{ post: object }>()
 </script>
 
 <template lang="pug">
-  div.post-card(v-if="post")
-    v-card.q-ma-sm.bg-grey-lighten-1(:append-avatar="post.user.avatar" :title="post.title" :text="post.short" max-height="200px" :image="post.poster")
-      v-card-text
-        post-controls(:post="post")
+  v-card.w-25.q-ma-sm.bg-grey-lighten-1(v-if="post" :image="post.poster")
+    v-toolbar.d-flex.justify-space-between(color="transparent" )
+      v-toolbar-title {{post.title}}
+      user-card(:user="post.user")
+    v-card-text
+      small {{post.short}}
+    v-card-actions
+      post-controls(:post="post")
 
 
 </template>
 
-<style scoped lang="sass">
-.v-card-title
-  display: none
-.post-card
-  width: 600px
+<style lang="sass">
+.v-card__image
+  opacity: .2
 
-.text
-  overflow: hidden
-  max-height: 100px
 
-img
-  //float: left
-  margin: 10px
-  max-height: 100px
-  max-width: 100px
 </style>
