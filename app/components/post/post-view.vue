@@ -13,17 +13,18 @@ div.pa-2
       img.poster(:src="post.poster")
 
   post-controls(:post="post")
-  mark-down#mark-down(:text="post.text")
+  mark-down.mark-down(:text="post.text")
   //p.body(v-html="post.markdown_body")
 
 </template>
 
-<style scoped lang="sass">
-img
+<style lang="sass">
+img.poster
   max-width: 300px
-  max-height: 300px
-//img.poster
-//  float: right
+.mark-down
+  img
+    max-width: 300px
+    max-height: 300px
 video
   border: 1px solid red
   width: 300px

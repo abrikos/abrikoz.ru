@@ -19,7 +19,7 @@ const menuItems = computed(() => {
 })
 
 const router = useRouter()
-
+const drawer = ref(false)
 async function login(provider: string) {
   openInPopup(`/api/auth/${provider}`,{width:600, height:600})
 }
@@ -33,9 +33,10 @@ async function login(provider: string) {
       v-progress-linear(indeterminate v-if="loading" )
       v-app-bar
         template(v-slot:prepend)
-          v-app-bar-nav-icon
+          v-app-bar-nav-icon.d-sm-none.d-block(@click="drawer = !drawer")
         v-app-bar-title Abrikos HP
-        v-btn(v-for="item in menuItems" :to="item.link") {{ item.label }}
+        div.d-none.d-xl-block
+          v-btn(v-for="item in menuItems" :to="item.link" ) {{ item.label }}
         v-spacer
         v-menu(v-if="user")
           template(v-slot:activator="{props}")
@@ -51,7 +52,9 @@ async function login(provider: string) {
               v-list-item(title="Github" @click="login('github')")
               v-list-item(title="Google" @click="login('google')")
               v-list-item(title="Yandex" @click="login('yandex')")
-
+      v-navigation-drawer.d-sm-none.d-block(v-model="drawer" location="left" )
+        v-list
+          v-list-item(v-for="item in menuItems" :to="item.link" :title="item.label")
       v-main
         v-container(fluid)
           NuxtPage
