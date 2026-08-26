@@ -5,11 +5,11 @@ const {post} = defineProps<{ post: object }>()
 </script>
 
 <template lang="pug">
-div.q-pa-lg
+div.pa-2
   h1 {{ post.title }}
-  div.bg-grey-4.q-pa-sm.flex.justify-between.no-wrap
+  div.bg-grey.pa-2.d-flex.justify-space-between.no-wrap
     strong {{post.short}}
-    div.q-mx-sm(v-if="post.poster")
+    div.mx-2(v-if="post.poster")
       img.poster(:src="post.poster")
 
   post-controls(:post="post")
