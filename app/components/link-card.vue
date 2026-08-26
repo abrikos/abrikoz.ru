@@ -29,30 +29,36 @@ const linkToMapDialog = ref(false)
 </script>
 
 <template lang="pug">
-  q-card.column.no-wrap.q-ma-sm(style="width: 400px; height:400px" v-if="link")
-    q-card-section(style="word-break: break-word; overflow-y:scroll")
-      q-img(:src="link.ogImage")
-      div.text-h6 {{ link.title }}
-        q-icon(name="mdi-map" v-if="link.coordinates?.length" color="green" )
-      div.text-subtitle2 {{ link.ogDescription || link.description }}
+  v-card.ma-sm.d-flex.flex-column(style="width: 400px; height:400px" v-if="link")
+    v-card-text(style="word-break: break-word; overflow-y:hidden")
+      v-img(:src="item.ogImage" v-if="link.ogImage")
+      v-skeleton-loader(v-else type="card")
+      div {{ link.title }}
       a(:href="link.url" target="_blank" rel="noopener noreferrer") {{link.url}}
+      div.text-red {{ link.ogDescription || link.description }}
 
-    q-card-actions.q-mt-auto.flex.justify-between
-      q-btn(icon="mdi-map-search" v-if="link.coordinates?.length" size="sm" :to="{path:'/links-map', query:{id:item.id}}")
-      span(v-if="user?.id === link.user" )
-        q-btn(icon="mdi-map" size="sm" @click="linkToMap=link;linkToMapDialog=true")
-        button-confirm(icon="mdi-delete" size="sm" color="red" message="Delete link" :route="`/link-remove?id=${link.id}`" :action="refresh")
-        q-toggle(v-model="link.hidden" @update:model-value="changeHidden" label="Hidden" size="sm" )
 
-  q-dialog(v-model="linkToMapDialog")
-    q-card(style="height:60vh; width:50vh")
-      q-toolbar
-        q-toolbar-title Add to map "{{ linkToMap.title }}"
-      q-card-section
-        link-for-map(:link="linkToMap" v-model="clickPoint")
-      q-card-actions
-        q-btn(label="Set location" size="sm" @click="setPoint" v-if="clickPoint" color="primary" )
-        q-btn(icon="mdi-delete" size="sm" @click="clickPoint=null;setPoint()" v-if="link.coordinates?.length")
+    v-card-actions.d-flex.justify-space-between.items-center
+      v-btn(icon="mdi-map-search" v-if="link.coordinates?.length" size="sm" :to="{path:'/links-map', query:{id:item.id}}")
+      v-spacer
+      v-dialog(max-width="600px")
+        template(v-slot:activator="{props}")
+          v-btn(icon="mdi-map" size="sm" @click="linkToMap=link;linkToMapDialog=true" v-if="user?.id === link.user" v-bind="props")
+        v-card(style="height:60vh; width:50vh")
+          v-toolbar
+            v-toolbar-title Add to map "{{ linkToMap.title }}"
+            v-btn(icon="mdi-close" @click="linkToMapDialog=false")
+          v-card-text
+            link-for-map(:link="linkToMap" v-model="clickPoint")
+          v-card-actions
+            v-btn(@click="setPoint" v-if="clickPoint" color="primary" variant="outlined" ) Set location
+            v-btn(icon="mdi-delete" @click="clickPoint=null;setPoint()" v-if="link.coordinates?.length")
+
+      button-confirm(icon="mdi-delete" color="red" message="Delete link" :route="`/link-remove?id=${link.id}`" :action="refresh" v-if="user?.id === link.user" )
+      v-tooltip(:text="link.hidden?'Show':'Hide'" )
+        template(v-slot:activator="{props}")
+          v-btn(:icon="link.hidden?'mdi-eye-off':'mdi-eye'" @click="changeHidden" label="Hidden" v-if="user?.id === link.user" v-bind="props")
+
 </template>
 
 <style scoped lang="sass">

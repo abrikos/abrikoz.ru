@@ -18,7 +18,7 @@ useHead({
 </script>
 
 <template lang="pug">
-  //div.flex
+  div.d-flex.flex-wrap.justify-center
     post-card(v-for="post in list" :post="post")
 </template>
 

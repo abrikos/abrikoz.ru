@@ -35,7 +35,7 @@ async function login(provider: string) {
         template(v-slot:prepend)
           v-app-bar-nav-icon.d-sm-none.d-block(@click="drawer = !drawer")
         v-app-bar-title Abrikos HP
-        div.d-none.d-xl-block
+        div.d-none.d-sm-block
           v-btn(v-for="item in menuItems" :to="item.link" ) {{ item.label }}
         v-spacer
         v-menu(v-if="user")
@@ -52,7 +52,7 @@ async function login(provider: string) {
               v-list-item(title="Github" @click="login('github')")
               v-list-item(title="Google" @click="login('google')")
               v-list-item(title="Yandex" @click="login('yandex')")
-      v-navigation-drawer.d-sm-none.d-block(v-model="drawer" location="left" )
+      v-navigation-drawer.d-sm-none.d-block(v-model="drawer" location="left" temporary)
         v-list
           v-list-item(v-for="item in menuItems" :to="item.link" :title="item.label")
       v-main

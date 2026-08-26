@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import {useLoaderStore} from "~/stores/loader.ts";
+
 const {loggedIn} = useUserSession()
-const loading = ref(false)
+const {loading} = storeToRefs(useLoaderStore())
 const {data:allLinks, refresh:refreshAll} = await useFetch('/api/link-list')
 const {data:myLinks, refresh:refreshMy} = await useFetch('/api/link-my')
 const route = useRoute()
@@ -9,10 +11,8 @@ const newLink = ref({url: 'https://vk.ru/wall-205394206_36674', hidden: false})
 const linkModel = ref()
 
 async function addLink() {
-  loading.value = true
   linkModel.value = await useNuxtApp().$POST(`/link-add`, newLink.value)
   router.push(`/links-all`)
-  loading.value = false
 }
 
 function refreshTotal(){
@@ -40,32 +40,31 @@ const tab =ref()
 </script>
 
 <template lang="pug">
-  q-tabs(active-color="primary" inactive-color="primary" v-model="tab" )
-    q-route-tab(to="/links-all" label="All" @click="refreshTotal" name="all")
-    q-route-tab(to="/links-my" label="My" @click="refreshTotal"  name="my" v-if="loggedIn")
-    q-route-tab(to="/links-map" label="Map" name="map")
-    q-route-tab(to="/links-add" label="Add" name="add" v-if="loggedIn")
+  v-tabs(fixed-tabs v-model="tab" )
+    v-tab(to="/links-all" @click="refreshTotal" value="all") All
+    v-tab(to="/links-my" @click="refreshTotal"  value="my" v-if="loggedIn") My
+    v-tab(to="/links-map" value="map") Map
+    v-tab(to="/links-add" value="add" v-if="loggedIn") Add
 
 
 
   div(v-if="route.params.action == 'map'")
     link-map
 
-  div.flex(v-if="route.params.action == 'my'")
+  div.d-flex.justify-space-between.flex-wrap.ga-3(v-if="route.params.action == 'my'")
     link-card(v-for="link in myLinks" :item="link" :refresh="refreshMy")
 
-  div.flex(v-if="route.params.action == 'all'")
+  div.d-flex.justify-space-between.flex-wrap.ga-3(v-if="route.params.action == 'all'")
     link-card(v-for="link in allLinks" :item="link" :refresh="refreshAll")
 
   div(v-if="route.params.action == 'add' && loggedIn")
-    q-form(@submit.prevent="addLink")
-      q-input(v-model="newLink.url" label="URL" :rules="[val => !!val || 'URL is required', val => isValidUrl(val) || 'Please enter a valid URL']" @update:model-value="testLink")
-      q-toggle(v-model="newLink.hidden" label="Hide link for others" )
+    v-form(@submit.prevent="addLink")
+      v-text-field(v-model="newLink.url" label="URL" :rules="[val => !!val || 'URL is required', val => isValidUrl(val) || 'Please enter a valid URL']" @update:model-value="testLink")
+      v-checkbox(v-model="newLink.hidden" label="Hide link for others" )
       div
-        link-card(v-if="linkModel" v-model="linkModel" :refresh="refreshTotal")
-        q-btn(type="submit" label="Add link" color="primary" :loading="loading")
-        q-btn(label="Test" @click="testLink" :loading="loading")
-
+        v-btn(type="submit" color="primary" :loading="loading") Add link
+        v-btn(@click="testLink" :loading="loading") Test
+    link-card(v-if="linkModel" v-model="linkModel" :refresh="refreshTotal")
 </template>
 
 <style scoped lang="sass">
