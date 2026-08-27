@@ -2,7 +2,7 @@
 FROM node:latest AS builder
 
 WORKDIR /app
-
+RUN npm install -g -s --no-progress yarn
 # Install dependencies first (better caching)
 COPY package*.json ./
 RUN yarn install
