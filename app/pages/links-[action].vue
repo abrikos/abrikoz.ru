@@ -40,31 +40,32 @@ const tab =ref()
 </script>
 
 <template lang="pug">
-  v-tabs(fixed-tabs v-model="tab" )
-    v-tab(to="/links-all" @click="refreshTotal" value="all") {{$t('All')}}
-    v-tab(to="/links-my" @click="refreshTotal"  value="my" v-if="loggedIn") {{$t('My')}}
-    v-tab(to="/links-map" value="map") {{$t('Map')}}
-    v-tab(to="/links-add" value="add" v-if="loggedIn") {{$t('Add')}}
+  div.d-flex.flex-row
+    v-tabs(v-model="tab" direction="vertical" )
+      v-tab(to="/links-all" @click="refreshTotal" value="all" :text="$t('All')")
+      v-tab(to="/links-my" @click="refreshTotal"  value="my" v-if="loggedIn" :text="$t('My')")
+      v-tab(to="/links-map" value="map" :text="$t('Map')") {{$t('Map')}}
+      v-tab(to="/links-add" value="add" v-if="loggedIn" :text="$t('Add')")
 
 
+    v-tabs-window(v-model="tab")
+      v-tabs-window-item(value="map" )
+        link-map
 
-  div(v-if="route.params.action == 'map'")
-    link-map
+      v-tabs-window-item(value="my").d-flex.justify-space-between.flex-wrap.ga-3
+        link-card(v-for="link in myLinks" :item="link" :refresh="refreshMy")
 
-  div.d-flex.justify-space-between.flex-wrap.ga-3(v-if="route.params.action == 'my'")
-    link-card(v-for="link in myLinks" :item="link" :refresh="refreshMy")
+      v-tabs-window-item(value="all").d-flex.justify-space-between.flex-wrap.ga-3
+        link-card(v-for="link in allLinks" :item="link" :refresh="refreshAll")
 
-  div.d-flex.justify-space-between.flex-wrap.ga-3(v-if="route.params.action == 'all'")
-    link-card(v-for="link in allLinks" :item="link" :refresh="refreshAll")
-
-  div(v-if="route.params.action == 'add' && loggedIn")
-    v-form(@submit.prevent="addLink")
-      v-text-field(hint="http / https" v-model="newLink.url" :label="$t('Link')" :rules="[val => !!val || $t('Link is required'), val => isValidUrl(val) || $t('Please enter a valid link')]" @update:model-value="testLink")
-      v-checkbox(v-model="newLink.hidden" :label="$t('Hide link for others')" )
-      div
-        v-btn(type="submit" color="primary" :loading="loading") {{$t('Create')}}
-        v-btn(@click="testLink" :loading="loading") Test
-    link-card(v-if="linkModel" v-model="linkModel" :refresh="refreshTotal")
+      v-tabs-window-item(value="add")(v-if="loggedIn")
+        v-form(@submit.prevent="addLink")
+          v-text-field(hint="http / https" v-model="newLink.url" :label="$t('Link')" :rules="[val => !!val || $t('Link is required'), val => isValidUrl(val) || $t('Please enter a valid link')]" @update:model-value="testLink")
+          v-checkbox(v-model="newLink.hidden" :label="$t('Hide link for others')" )
+          div
+            v-btn(type="submit" color="primary" :loading="loading") {{$t('Create')}}
+            v-btn(@click="testLink" :loading="loading") Test
+        link-card(v-if="linkModel" v-model="linkModel" :refresh="refreshTotal")
 </template>
 
 <style scoped lang="sass">

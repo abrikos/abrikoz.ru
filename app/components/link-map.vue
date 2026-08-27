@@ -28,7 +28,7 @@ function setMapCenter(){
       :use-global-leaflet="false"
       )
       LControl(position="topright")
-        q-btn(label="center" @click="setMapCenter" color="primary" )
+        v-btn(@click="setMapCenter" color="primary" ) Center
       LMarker(v-for="link in allLinks" :lat-lng="link.coordinates")
         LIcon( :icon-size="[50, 50]" :icon-url="link.ogImage")
       LTileLayer(
