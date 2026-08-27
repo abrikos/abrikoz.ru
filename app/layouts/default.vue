@@ -49,15 +49,16 @@ async function login(provider: string) {
           v-card
             v-list
               v-list-item(:title="l.name" @click="setLocale(l.code)" density="compact" v-for="l in availableLocales")
+        v-spacer
         v-menu(v-if="user")
           template(v-slot:activator="{props}")
             user-card(:user="user" v-bind="props")
           v-card.mt-2
             v-list
-              v-list-item(title="Logout" @click="clear" density="compact" )
+              v-list-item(:title="$t('Logout')" @click="clear" density="compact" )
         v-menu(v-else)
           template(v-slot:activator="{props}")
-            v-btn(v-bind="props") Login
+            v-btn(v-bind="props") {{$t('Login')}}
           v-card.mt-2
             v-list
               v-list-item(title="Github" @click="login('github')")

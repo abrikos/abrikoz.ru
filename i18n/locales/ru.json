@@ -1,4 +1,6 @@
 {
+  "Login": "Вход",
+  "Logout": "Выход",
   "Home": "Главная",
   "Weather": "Погода",
   "Add post": "Добавить публикацию",
@@ -14,5 +16,14 @@
   "Show for all": "Показывать всем",
   "Not published": "Не опубликовано",
   "Delete post": "Удалить публикацию",
-  "Poster image url": "Ссылка на постер"
+  "Poster image url": "Ссылка на постер",
+
+  "All": "Все",
+  "My": "Мои",
+  "Map": "Карта",
+  "Add": "Добавить",
+  "Link": "Ссылка",
+  "Hide link for others": "Скрыть ссылку для всех",
+  "Link is required": "Ссылка обязательна",
+  "Please enter a valid link": "Введите валидную ссылку"
 }
