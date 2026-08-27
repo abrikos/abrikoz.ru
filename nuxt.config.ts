@@ -36,6 +36,7 @@ export default defineNuxtConfig({
             {name: 'Русский', code: 'ru', language: 'ru-RU', file: 'ru.json'}
         ],
         defaultLocale: 'en',
+        strategy: 'no_prefix'
     },
     build: {
         transpile: ['vuetify'],

@@ -2,7 +2,6 @@
 import {useLoaderStore} from "~/stores/loader";
 
 const { locales, locale, setLocale } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
 const drawerLeft = ref(true)
