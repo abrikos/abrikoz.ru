@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import {useLoaderStore} from "~/stores/loader";
 
+const { locales, locale, setLocale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
 const drawerLeft = ref(true)
@@ -16,6 +18,10 @@ const menuItems = computed(() => {
     {label: 'Links', icon: 'mdi-link-edit', link: '/links-all', hide: !user.value},
     {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
   ].filter(i=>!i.hide)
+})
+
+const availableLocales = computed(() => {
+  return locales.value.filter(i => i.code !== locale.value)
 })
 
 const router = useRouter()
@@ -35,8 +41,14 @@ async function login(provider: string) {
           v-app-bar-nav-icon.d-sm-none.d-block(@click="drawer = !drawer")
         v-app-bar-title Abrikos HP
         div.d-none.d-sm-block
-          v-btn(v-for="item in menuItems" :to="item.link" ) {{ item.label }}
+          v-btn(v-for="item in menuItems" :to="item.link" ) {{ $t(item.label) }}
         v-spacer
+        v-menu
+          template(v-slot:activator="{props}")
+            v-btn(v-bind="props" icon="mdi-translate")
+          v-card
+            v-list
+              v-list-item(:title="l.name" @click="setLocale(l.code)" density="compact" v-for="l in availableLocales")
         v-menu(v-if="user")
           template(v-slot:activator="{props}")
             user-card(:user="user" v-bind="props")
@@ -53,7 +65,7 @@ async function login(provider: string) {
               v-list-item(title="Yandex" @click="login('yandex')")
       v-navigation-drawer.d-sm-none.d-block(v-model="drawer" location="left" temporary)
         v-list
-          v-list-item(v-for="item in menuItems" :to="item.link" :title="item.label")
+          v-list-item(v-for="item in menuItems" :to="item.link" :title="$t(item.label)")
       v-main
         v-container(fluid)
           NuxtPage

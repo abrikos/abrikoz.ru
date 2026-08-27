@@ -18,17 +18,25 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: {enabled: true},
     modules: [
-        'nuxt-mongoose',
-        'nuxt-auth-utils',
-        '@pinia/nuxt',
-        '@nuxtjs/leaflet',
-        'vuetify-nuxt-module',
-        'nuxt-toast'
+      'nuxt-mongoose',
+      'nuxt-auth-utils',
+      '@pinia/nuxt',
+      '@nuxtjs/leaflet',
+      'vuetify-nuxt-module',
+      'nuxt-toast',
+      '@nuxtjs/i18n'
     ],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
     //     modelsDir: 'models', // Default directory for auto-importing schemas
     // },
+    i18n: {
+        locales: [
+            {name:'English', code: 'en', language: 'en-US', file: 'computed/en.ts' },
+            {name:'Русский', code: 'ru', language: 'ru-RU', file: 'ru.json' }
+        ],
+        defaultLocale: 'en',
+    },
     build:{
         transpile: ['vuetify'],
     },
