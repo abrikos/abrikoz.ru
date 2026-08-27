@@ -4,8 +4,9 @@ FROM node:latest AS builder
 WORKDIR /app
 
 # Install dependencies first (better caching)
+RUN corepack enable && corepack prepare yarn@stable --activate
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 
 # Copy source and build
 COPY . .
