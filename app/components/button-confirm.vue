@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const {route, label, message, icon, action,color} = defineProps<{
-  route: string,
+  route?: string,
   label?: string,
   color?: string,
   message: string,
@@ -9,7 +9,7 @@ const {route, label, message, icon, action,color} = defineProps<{
 }>()
 
 async function submit() {
-  await useNuxtApp().$GET(route)
+  route && await useNuxtApp().$GET(route)
   action && action()
 }
 </script>
@@ -17,13 +17,12 @@ async function submit() {
 <template lang="pug">
   v-dialog(max-width="600px")
     template(v-slot:activator="{props}")
-      v-btn(:icon='icon' v-bind="props" :color="color")
-    v-card
-      v-card-text
-        v-banner(color="red" ) {{message}}
-      v-card-actions
-        v-btn(label="OK" size="sm" color="primary" @click="submit") OK
-        v-btn(label="Cancel" size="sm") Cancel
+      v-btn(:icon='icon' v-bind="props" :color="color" variant="plain")
+    template(v-slot:default="{ isActive }")
+      v-banner(color="red" ) {{message}}
+        template(v-slot:actions)
+          v-btn(label="OK" color="primary" @click="submit();isActive.value=false") OK
+          v-btn(label="Cancel" @click="isActive.value=false") Cancel
 </template>
 
 <style scoped lang="sass">

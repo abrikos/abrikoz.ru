@@ -18,13 +18,13 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: {enabled: true},
     modules: [
-      'nuxt-mongoose',
-      'nuxt-auth-utils',
-      '@pinia/nuxt',
-      '@nuxtjs/leaflet',
-      'vuetify-nuxt-module',
-      'nuxt-toast',
-      '@nuxtjs/i18n'
+        'nuxt-mongoose',
+        'nuxt-auth-utils',
+        '@pinia/nuxt',
+        '@nuxtjs/leaflet',
+        'vuetify-nuxt-module',
+        'nuxt-toast',
+        '@nuxtjs/i18n'
     ],
     // mongoose: {
     //     uri: "mongodb://localhost:27017/abrikoz",
@@ -32,12 +32,12 @@ export default defineNuxtConfig({
     // },
     i18n: {
         locales: [
-            {name:'English', code: 'en', language: 'en-US', file: 'computed/en.ts' },
-            {name:'Русский', code: 'ru', language: 'ru-RU', file: 'ru.json' }
+            {name: 'English', code: 'en', language: 'en-US', file: 'computed/en.ts'},
+            {name: 'Русский', code: 'ru', language: 'ru-RU', file: 'ru.json'}
         ],
         defaultLocale: 'en',
     },
-    build:{
+    build: {
         transpile: ['vuetify'],
     },
     vuetify: {
@@ -49,6 +49,11 @@ export default defineNuxtConfig({
                 defaultSet: 'mdi',
                 sets: ['mdi', 'fa']
             },
+            defaults: {
+                VBtn: {
+                    density: 'compact',
+                }
+            }
         },
     },
     vite: {

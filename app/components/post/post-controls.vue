@@ -10,11 +10,10 @@ const deletePost = async () => {
 </script>
 
 <template lang="pug">
-  div.pa-3.d-flex.justify-space-between.align-center(:class="post.published? '':'bg-red-lighten-4'" v-if="user?.id === post?.user?.id")
-    v-btn(size="sm" icon="mdi-pencil" :to="`/post-edit-${post.id}`")
-    span(v-if="!post.published") Not published
-    v-btn(size="sm" icon="mdi-delete" flat @click.stop="deletePost(post.id)" :color="post.published? 'red':''")
-
+  div.pa-3.d-flex.justify-space-between.align-center(v-if="user?.id === post?.user?.id")
+    v-btn(icon="mdi-pencil" :to="`/post-edit-${post.id}`" variant="plain")
+    span.text-red(v-if="!post.published") {{$t('Not published')}}
+    button-confirm(icon="mdi-delete" color="red" :message="$t('Delete post')" :action="deletePost")
 </template>
 
 <style scoped lang="sass">

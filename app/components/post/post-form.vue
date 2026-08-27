@@ -26,14 +26,13 @@ function upload() {
     div.w-50
       v-form(@submit="onSubmit")
         v-card-text
-          v-text-field(v-model="post.title" label="Title" required)
-          v-text-field(v-model="post.poster" label="Poster image url" hint="Place link for any image")
+          v-text-field(v-model="post.title" :label="$t('Title')" required)
+          v-text-field(v-model="post.poster" :label="$t('Poster image url')" hint="Place link for any image")
             template(v-slot:prepend)
               v-icon(icon="mdi-image")
-          v-textarea(v-model="post.short" label="Short" auto-grow)
+          v-textarea(v-model="post.short" :label="$t('Short')" auto-grow)
 
-          v-btn(size="sm" icon="mdi-pencil" :to="`/post-edit-${post.id}`")
-          v-textarea(v-model="post.text" label="Body (accepts markdown syntax)" auto-grow)
+          v-textarea(v-model="post.text" :label="$t('Text')" auto-grow)
             template(v-slot:append)
 
               v-dialog(max-width="500" activator="parent" )
@@ -48,15 +47,15 @@ function upload() {
                       a(href="https://skillbox.ru/media/code/yazyk-razmetki-markdown-shpargalka-po-sintaksisu-s-primerami/" target="_blank") Markdown syntax
           div.d-flex.justify-space-between
             div
-              v-checkbox(v-model="post.published" label="Show for all")
+              v-checkbox(v-model="post.published" :label="$t('Show for all')")
             div.text-right {{ post.date  }}
 
         v-card-actions.d-flex.justify-space-between
-          v-btn(type="submit" color="primary" variant="outlined" ) {{route.params.id ? 'Save':'Create'}}
+          v-btn(type="submit" color="primary" variant="outlined" ) {{$t(route.params.id ? 'Save':'Create')}}
 
     div.w-50
       div.preview
-        router-link(:to="`/post-view-${route.params.id}`" v-if="route.params.id") Go to post
+        router-link(:to="`/post-view-${route.params.id}`" v-if="route.params.id") {{$t('Go to post')}}
         post-view(:post="post")
 
 
