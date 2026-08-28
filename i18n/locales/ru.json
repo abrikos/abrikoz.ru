@@ -1,4 +1,9 @@
 {
+  "Fiscal": "Чеки",
+  "Fiscal goods": "Товары",
+  "Fiscal list": "Список чеков",
+  "Fiscal monthly": "Чеки помесячно",
+  "Upload": "Загрузка",
   "Translate": "Перевод",
   "Login": "Вход",
   "Logout": "Выход",
@@ -32,5 +37,29 @@
   "Link to map": "Ссылка на карте",
   "Hide link for others": "Скрыть ссылку для всех",
   "Link is required": "Ссылка обязательна",
-  "Please enter a valid link": "Введите валидную ссылку"
+  "Please enter a valid link": "Введите валидную ссылку",
+
+  "$vuetify": {
+    "noDataText": "Нет данных",
+    "dataTable": {
+      "sortBy": "Сортировка"
+    },
+    "dataFooter": {
+      "pageText": "Страницы",
+      "itemsPerPageText": "Строк на страницу",
+      "itemsPerPageAll": "Все строки",
+      "lastPage": "",
+      "nextPage": "",
+      "firstPage": "",
+      "prevPage": ""
+    },
+    "pagination": {
+      "ariaLabel": {
+        "root": ""
+      }
+    },
+    "input": {
+      "clear": "Отчистить"
+    }
+  }
 }

@@ -1,4 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import { EventEmitter } from 'events'
+
+// Increase the global limit from 10 to 20 (or higher if needed)
+EventEmitter.defaultMaxListeners = 200
 export default defineNuxtConfig({
     app: {
         head: {

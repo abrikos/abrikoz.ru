@@ -29,6 +29,12 @@ const menuItems = computed(() => {
       ]
     },
     {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
+    {label: 'Fiscal',  hide: !user.value, children: [
+        {label: 'Fiscal list', icon: 'mdi-map-legend', link: '/fiscal-list'},
+        {label: 'Fiscal goods', icon: 'mdi-map-legend', link: '/fiscal-goods'},
+        {label: 'Fiscal monthly', icon: 'mdi-map-legend', link: '/fiscal-monthly'},
+        {label: 'Upload', icon: 'mdi-map-legend', link: '/fiscal-upload'},
+      ]},
   ].filter(i => !i.hide).map(i => {
     i.children = i.children ? i.children.filter(i1 => !i1.hide) : []
     return i
