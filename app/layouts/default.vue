@@ -6,9 +6,7 @@ const {mobile, xs} = useDisplay()
 const {locales, locale, setLocale} = useI18n()
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
-const drawerLeft = ref(true)
-const drawerRight = ref(true)
-const bar = ref()
+const route = useRoute()
 
 const menuItems = computed(() => {
   return [
@@ -18,16 +16,21 @@ const menuItems = computed(() => {
       label: 'Posts', children: [
         {label: 'Add post', icon: 'mdi-playlist-plus', link: '/post-create', hide: !user.value},
         {label: 'My posts', icon: 'mdi-text-account', link: '/post-my', hide: !user.value},
+        {label: 'Post view', icon: 'mdi-text-account', link: route.fullPath, hide: route.name!=='post-view-id'},
+        {label: 'Post edit', icon: 'mdi-text-account', link: route.fullPath, hide: route.name!=='post-edit-id'},
       ]
     },
-    {label: 'Links', hide: !user.value, children: [
+    {label: 'Links', children: [
         {label: 'All', icon: 'mdi-link-box', link: '/links-all'},
-        {label: 'My', icon: 'mdi-link-lock', link: '/links-my'},
+        {label: 'My', icon: 'mdi-link-lock', link: '/links-my', hide: !user.value},
         {label: 'Map', icon: 'mdi-map-legend', link: '/links-map'},
-        {label: 'Add', icon: 'mdi-link-plus', link: '/links-add'},
+        {label: 'Add', icon: 'mdi-link-plus', link: '/links-add', hide: !user.value},
       ]},
     {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
-  ].filter(i => !i.hide)
+  ].filter(i => !i.hide).map(i=> {
+    i.children = i.children ? i.children.filter(i1 => !i1.hide) : []
+    return i
+  })
 })
 
 const availableLocales = computed(() => {
@@ -40,13 +43,12 @@ const drawer = ref(!mobile)
 async function login(provider: string) {
   openInPopup(`/api/auth/${provider}`, {width: 600, height: 600})
 }
-
+console.log(route)
 </script>
 
 <template lang="pug">
   div.common-layout
     v-app
-      v-progress-linear(indeterminate v-if="loading" )
       v-app-bar
         template(v-slot:prepend)
           v-app-bar-nav-icon(@click="drawer = !drawer")
@@ -77,21 +79,20 @@ async function login(provider: string) {
         v-list
           v-list-item.menu-section(v-for="item in menuItems" :to="item.link" :title="$t(item.label)")
             template(v-slot:prepend)
-              v-icon(:icon="item.icon")
+              v-icon(:icon="item.icon" v-if="item.icon")
             v-list(v-if="item.children")
               v-list-item(v-for="subItem in item.children" :to="subItem.link") {{ $t(subItem.label) }}
                 template(v-slot:prepend)
                   v-icon(:icon="subItem.icon")
 
       v-main
+        v-progress-linear(indeterminate v-if="loading" )
         v-container(fluid)
           NuxtPage
 
 </template>
 
 <style scoped lang="sass">
-div
-  display: block
 .menu-section
   border-bottom: 1px solid silver
 </style>
