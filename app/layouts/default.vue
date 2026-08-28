@@ -46,7 +46,6 @@ async function login(provider: string) {
   openInPopup(`/api/auth/${provider}`, {width: 600, height: 600})
 }
 
-console.log(route)
 </script>
 
 <template lang="pug">
