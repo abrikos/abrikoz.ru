@@ -1,7 +1,7 @@
 import {useLoaderStore} from "~/stores/loader";
 
 export default defineNuxtPlugin((_nuxtApp) => {
-    const {setTrue, setFalse, loading} = useLoaderStore()
+    const {setTrue, setFalse} = useLoaderStore()
     const toast = useToast()
 
     function onError(e: any) {
@@ -40,14 +40,12 @@ export default defineNuxtPlugin((_nuxtApp) => {
             },
             async POST(path: string, body?: any) {
                 setTrue()
-                console.log(loading)
                 //await new Promise(resolve => setTimeout(resolve, 5000));
                 if (debug) console.log('POST', path, body);
                 const res = await $fetch(apiPath + path, {method: 'POST', body})
                     .catch(onError)
                 if (res && debug && showResponse) console.log('POST response:', path, res)
                 setFalse()
-                console.log(loading)
                 return res
             },
             async PUT(path: string, body?: any) {
