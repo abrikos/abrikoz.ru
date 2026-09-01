@@ -7,13 +7,13 @@ async function load(){
 onMounted(load)
 
 useHead({
-  title: post.value?.title,
+  title: ()=>post.value?.title,
   meta: [
-    {name: 'description', content: post.value?.short},
-    {property: 'og:title', content: post.value?.title},
-    {property: 'og:image', content: post.value?.poster},
+    {name: 'description', content: ()=>post.value?.short},
+    {property: 'og:title', content: ()=>post.value?.title},
+    {property: 'og:image', content: ()=>post.value?.poster},
     {property: 'og:type', content: 'article'},
-    {property: 'og:description', content: post.value?.short},
+    {property: 'og:description', content: ()=>post.value?.short},
   ]
 })
 </script>
