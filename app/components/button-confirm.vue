@@ -15,7 +15,7 @@ async function submit() {
 </script>
 
 <template lang="pug">
-  q-btn(:label='label' :icon='icon' :color="color")
+  q-btn(:label='label' :icon='icon' :color="color" size="sm")
     q-popup-proxy
       q-banner {{message}}
         q-btn(label="OK" size="sm" color="primary" @click="submit" v-close-popup)

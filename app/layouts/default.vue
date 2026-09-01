@@ -57,14 +57,8 @@ async function login(provider: string) {
   q-layout
     q-header
       q-toolbar
-        q-btn(@click="drawer = !drawer" icon="mdi-menu" )
+        q-btn(@click="drawer = !drawer" icon="mdi-menu" flat)
         q-toolbar-title Abrikos HP
-        q-space
-        q-btn(icon="mdi-translate" :title="$t('Translate')")
-          q-menu
-            q-list
-              q-item(clickable v-close-popup @click="setLocale(l.code)" v-for="l in availableLocales")
-                q-item-section {{l.name}}
         q-space
         q-item
           q-item-section
@@ -84,6 +78,12 @@ async function login(provider: string) {
                     q-item-section Login with Google
                   q-item(clickable v-close-popup @click="login('yandex')")
                     q-item-section Login with Yandex
+
+        q-btn(icon="mdi-translate" :title="$t('Translate')" flat)
+          q-menu
+            q-list
+              q-item(clickable v-close-popup @click="setLocale(l.code)" v-for="l in availableLocales")
+                q-item-section {{l.name}}
 
     q-drawer(v-model="drawer"  :breakpoint="1024"       show-if-above      bordered)
       q-list(padding)

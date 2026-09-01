@@ -7,10 +7,10 @@ const {post} = defineProps<{ post: object }>()
 <template lang="pug">
 div.pa-2
   div.text-h4 {{ post.title }}
-  div.bg-grey.q-pa-sm.row.gt-sm
+  div.bg-grey.q-pa-sm.row.orientation-landscape
     q-img.col-4(:src="post.poster" v-if="post.poster")
     strong.col-8.q-px-sm {{post.short}}
-  div.lt-sm
+  div.orientation-portrait
     q-img(:src="post.poster")
     strong {{post.short}}
   post-controls(:post="post")
