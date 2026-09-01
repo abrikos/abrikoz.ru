@@ -11,7 +11,7 @@ const headers = [
     {label: 'Кол-во', field: 'quantity', name:''},
     {label: 'Цена', field: 'priceHuman', name:''},
     {label: 'Сумма', field: 'sum', name:''},
-    {label: 'Дата', field: (row)=>row.fiscal.date, name:''},
+    {label: 'Дата', field: (row)=>row.fiscal.date, name:'', sortable: true, align: 'left'},
     {label: 'Магазин', field: (row)=>row.fiscal.retailPlaceFull, name:''},
 
 ]
@@ -27,6 +27,8 @@ const filtered = computed(()=>{
     for(const field in v){
       if(headers.map(h=>h.field).includes(field) && v[field].toString().toLowerCase().match(search.value.toLowerCase())){ return true }
     }
+  }).sort((a,b)=>{
+   return b.fiscal.dateTime.localeCompare(a.fiscal.dateTime)
   })
 })
 
