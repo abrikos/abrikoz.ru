@@ -1,25 +1,26 @@
 <script setup lang="ts">
 
 const zoom = ref(8)
-function click(e){
+
+function click(e: any) {
   coords.value.push([e.latlng.lat, e.latlng.lng])
 }
 
-function markerMove(l: any, i:number) {
+function markerMove(l: any, i: number) {
   coords.value[i] = l
 }
 
 const coords = ref([
-    [47.334852, -1.509485],
+  [47.334852, -1.509485],
   [47.342596, -1.328731],
   [47.241487, -1.190568],
   [47.234787, -2.358337],
 ])
 const poly = ref()
-if(useNuxtApp().$L) {
+if (useNuxtApp().$L) {
   //console.log(useNuxtApp().$L.GeometryUtil.accumulatedLengths([[47.342596, -1.328731],[47.334852, -1.509485]]))
 }
-onMounted(()=>{
+onMounted(() => {
   console.log(poly.value)
 })
 </script>
