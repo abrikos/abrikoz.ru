@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export default defineEventHandler(async (event) => {
     const {user} = await getUserSession(event) as unknown as {user:{id:string}}
-    if (!user) throw createError({statusCode: 403, message: event.context.$t('Access denied'),})
+    if (!user) return
     return FiscalModel.aggregate([
         {$match: {user: new mongoose.Types.ObjectId(user.id), deleted:{$ne:true}}},
         //{ "$unwind": "$goods" },
