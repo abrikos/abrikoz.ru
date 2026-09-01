@@ -15,14 +15,12 @@ async function submit() {
 </script>
 
 <template lang="pug">
-  v-dialog(max-width="600px")
-    template(v-slot:activator="{props}")
-      v-btn(:icon='icon' v-bind="props" :color="color" variant="plain")
-    template(v-slot:default="{ isActive }")
-      v-banner(color="red" ) {{message}}
-        template(v-slot:actions)
-          v-btn(label="OK" color="primary" @click="submit();isActive.value=false") OK
-          v-btn(label="Cancel" @click="isActive.value=false") Cancel
+  q-btn(:label='label' :icon='icon' :color="color")
+    q-popup-proxy
+      q-banner {{message}}
+        q-btn(label="OK" size="sm" color="primary" @click="submit" v-close-popup)
+        q-btn(label="Cancel" size="sm" v-close-popup)
+
 </template>
 
 <style scoped lang="sass">

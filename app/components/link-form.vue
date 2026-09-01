@@ -30,13 +30,17 @@ const isValidUrl = (val: string) => {
 </script>
 
 <template lang="pug">
-  v-form(@submit.prevent="addLink")
-    v-text-field(hint="http / https" v-model="newLink.url" :label="$t('Link')" :rules="[val => !!val || $t('Link is required'), val => isValidUrl(val) || $t('Please enter a valid link')]" @update:model-value="testLink")
-    v-checkbox(v-model="newLink.hidden" :label="$t('Hide link for others')" )
-    div
-      v-btn(type="submit" color="primary" :loading="loading") {{$t('Create')}}
-      v-btn(@click="testLink" :loading="loading") Test
-  link-card(v-if="linkModel" v-model="linkModel")
+q-card.q-ma-lg
+  q-toolbar
+    q-toolbar-title Add link
+  q-card-section
+    q-form(@submit.prevent="addLink")
+      q-input(hint="http / https" v-model="newLink.url" :label="$t('Link')" :rules="[val => !!val || $t('Link is required'), val => isValidUrl(val) || $t('Please enter a valid link')]" @update:model-value="testLink")
+      q-checkbox(v-model="newLink.hidden" :label="$t('Hide link for others')" )
+      div
+        q-btn(type="submit" color="primary" :loading="loading") {{$t('Create')}}
+        q-btn(@click="testLink" :loading="loading") Test
+    link-card(v-if="linkModel" v-model="linkModel")
 
 </template>
 

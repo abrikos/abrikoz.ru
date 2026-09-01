@@ -7,12 +7,12 @@ async function load(){
 }
 onMounted(load)
 const headers = [
-    {title: 'Наименование', key: 'name', name:'', align: 'left'},
-    {title: 'Кол-во', key: 'quantity', name:''},
-    {title: 'Цена', key: 'priceHuman', name:''},
-    {title: 'Сумма', key: 'sum', name:''},
-    {title: 'Дата', key: 'fiscal.date', name:''},
-    {title: 'Магазин', key: 'fiscal.retailPlaceFull', name:''},
+    {label: 'Наименование', field: 'name', name:'', align: 'left'},
+    {label: 'Кол-во', field: 'quantity', name:''},
+    {label: 'Цена', field: 'priceHuman', name:''},
+    {label: 'Сумма', field: 'sum', name:''},
+    {label: 'Дата', field: (row)=>row.fiscal.date, name:''},
+    {label: 'Магазин', field: (row)=>row.fiscal.retailPlaceFull, name:''},
 
 ]
 const search = ref('')
@@ -24,8 +24,8 @@ function goToFiscal(e: any, row: any) {
 
 const filtered = computed(()=>{
   return list.value.filter((v:any)=>{
-    for(const key in v){
-      if(headers.map(h=>h.key).includes(key) && v[key].toString().toLowerCase().match(search.value.toLowerCase())){ return true }
+    for(const field in v){
+      if(headers.map(h=>h.field).includes(field) && v[field].toString().toLowerCase().match(search.value.toLowerCase())){ return true }
     }
   })
 })
@@ -35,9 +35,9 @@ const filtered = computed(()=>{
 </script>
 
 <template lang="pug">
-v-text-field(v-model="search" clearable label="Поиск" )
-//q-table(:rows="fiscal" :headers="headers" v-model:search="search" @click:row="goToFiscal" item-value="id")
-v-data-table(:items="filtered" :headers="headers" @click:row="goToFiscal" :pagination="{rowsPerPage:10}")
+q-input(v-model="search" clearable label="Поиск" )
+q-table(:rows="filtered" :columns="headers" v-model:search="search" @click:row="goToFiscal" item-value="id" :dense="$q.screen.lt.md")
+
 
 </template>
 

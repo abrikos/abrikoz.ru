@@ -23,11 +23,11 @@ async function deleteFiscal(id:string){
 
 <template lang="pug">
 div(v-if="fiscal")
-    h1 {{fiscal.fiscalDocumentNumber}} {{fiscal.date}} {{fiscal.retailPlaceFull}}
-    v-btn(@click.prevent.stop="deleteFiscal(fiscal.id)" icon="mdi-delete" size="small" )
+    div.text-h3 {{fiscal.fiscalDocumentNumber}} {{fiscal.date}} {{fiscal.retailPlaceFull}}
+    q-btn(@click.prevent.stop="deleteFiscal(fiscal.id)" icon="mdi-delete" size="small" )
     //v-text-field(v-model="search" prepend-inner-icon="mdi-magnify" flat hide-details variant="solo-filled")
     //v-data-table(:items="fiscal.goods" :headers="headers" v-model:search="search" )
-    v-card
+    q-card
         table
             tbody
                 tr

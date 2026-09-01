@@ -14,8 +14,8 @@ async function upload(e: any) {
 
 <template lang="pug">
 input(type="file" ref="input" @change="upload" accept=".json" hidden)
-v-btn(@click="()=>input.click()" :loading="loading" color="primary" ) Выбрать JSON файл отправленный приложением
-v-divider.ma-3
+q-btn(@click="()=>input.click()" :loading="loading" color="primary" ) Выбрать JSON файл отправленный приложением
+
 
 a(href='https://play.google.com/store/apps/details?id=ru.fns.billchecker&hl=ru&gl=US&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank")
     div Приложение "Проверка чеков ФНС России"

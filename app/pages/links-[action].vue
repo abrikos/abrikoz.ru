@@ -16,10 +16,10 @@ onMounted(load)
   div(v-if="route.params.action == 'map'")
     link-map
 
-  div.d-flex.flex-wrap.ga-3(v-if="route.params.action == 'my'")
+  div.flex.flex-wrap(v-if="route.params.action == 'my'")
     link-card(v-for="link in myLinks" :item="link" :refresh="load")
 
-  div.d-flex.flex-wrap.ga-3(v-if="route.params.action == 'all'")
+  div.flex.flex-wrap(v-if="route.params.action == 'all'")
     link-card(v-for="link in allLinks" :item="link" :refresh="load")
 
   div(v-if="route.params.action == 'add' && loggedIn")

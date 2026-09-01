@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import {useLoaderStore} from "~/stores/loader";
-import {useDisplay} from 'vuetify'
 
-const {mobile} = useDisplay()
 const {locales, locale, setLocale} = useI18n()
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
@@ -46,7 +44,7 @@ const availableLocales = computed(() => {
 })
 
 const router = useRouter()
-const drawer = ref(!mobile.value)
+const drawer = ref()
 
 async function login(provider: string) {
   openInPopup(`/api/auth/${provider}`, {width: 600, height: 600})
@@ -55,46 +53,52 @@ async function login(provider: string) {
 </script>
 
 <template lang="pug">
-  v-progress-linear#progress(indeterminate v-if="loading" )
-  v-app
-    v-app-bar
-      template(v-slot:prepend)
-        v-app-bar-nav-icon(@click="drawer = !drawer")
-      v-app-bar-title Abrikos HP
-      v-spacer
-      v-menu
-        template(v-slot:activator="{props}")
-          v-btn(v-bind="props" icon="mdi-translate" :title="$t('Translate')")
-        v-card
-          v-list
-            v-list-item(:title="l.name" @click="setLocale(l.code)" density="compact" v-for="l in availableLocales")
-      v-spacer
-      v-menu(v-if="user")
-        template(v-slot:activator="{props}")
-          user-card(:user="user" v-bind="props")
-        v-card.mt-2
-          v-list
-            v-list-item(:title="$t('Logout')" @click="clear" density="compact" )
-      v-menu(v-else)
-        template(v-slot:activator="{props}")
-          v-btn(v-bind="props") {{$t('Login')}}
-        v-card.mt-2
-          v-list
-            v-list-item(title="Github" @click="login('github')")
-            v-list-item(title="Google" @click="login('google')")
-            v-list-item(title="Yandex" @click="login('yandex')")
-    v-navigation-drawer(v-model="drawer" location="left" :temporary="mobile")
-      v-list
-        v-list-item.menu-section(v-for="item in menuItems" :to="item.link" :title="$t(item.label)")
-          template(v-slot:prepend)
-            v-icon(:icon="item.icon" v-if="item.icon")
-          v-list(v-if="item.children")
-            v-list-item(v-for="subItem in item.children" :to="subItem.link") {{ $t(subItem.label) }}
-              template(v-slot:prepend)
-                v-icon(:icon="subItem.icon")
+  q-linear-progress#progress(indeterminate v-if="loading" )
+  q-layout
+    q-header
+      q-toolbar
+        q-btn(@click="drawer = !drawer" icon="mdi-menu" )
+        q-toolbar-title Abrikos HP
+        q-space
+        q-btn(icon="mdi-translate" :title="$t('Translate')")
+          q-menu
+            q-list
+              q-item(clickable v-close-popup @click="setLocale(l.code)" v-for="l in availableLocales")
+                q-item-section {{l.name}}
+        q-space
+        q-item
+          q-item-section
+            q-btn(v-if="loggedIn" flat)
+              user-card(:user="user" )
+              q-menu
+                q-list
+                  q-item(clickable v-close-popup @click="clear" )
+                    q-item-section Logout
 
-    v-main
-      v-container(fluid)
+            q-btn(label="Login" flat v-else)
+              q-menu
+                q-list
+                  q-item(clickable v-close-popup @click="login('github')")
+                    q-item-section Login with GitHub
+                  q-item(clickable v-close-popup @click="login('google')")
+                    q-item-section Login with Google
+                  q-item(clickable v-close-popup @click="login('yandex')")
+                    q-item-section Login with Yandex
+
+    q-drawer(v-model="drawer"  :breakpoint="1024"       show-if-above      bordered)
+      q-list(padding)
+        q-item.menu-section(clickable v-ripple v-for="item in menuItems" :to="item.link" :aria-label="$t(item.label)")
+          q-item-section(avatar v-if="item.icon")
+            q-icon(:name="item.icon" v-if="item.icon")
+          q-item-section {{$t(item.label)}}
+            q-list(v-if="item.children")
+              q-item(v-for="subItem in item.children" :to="subItem.link" :aria-label="$t(subItem.label)")
+                q-item-section(avatar)
+                  q-icon(:name="subItem.icon")
+                q-item-section {{$t(subItem.label)}}
+
+    q-page-container
+      q-page
         NuxtPage
 
 </template>

@@ -9,14 +9,15 @@ const {post} = defineProps<{ post: object }>()
 </script>
 
 <template lang="pug">
-  v-card.w-sm-25.ma-2.bg-grey-lighten-1(v-if="post" :image="post.poster")
-    v-toolbar.d-flex.justify-space-between(color="transparent" )
-      v-toolbar-title
+  q-card.q-ma-sm.bg-grey-5(v-if="post" style="width:300px")
+
+    q-toolbar.flex.justify-between(color="transparent" )
+      q-toolbar-title
         router-link(:to="`/post-view-${post.id}`") {{post.title}}
       user-card(:user="post.user")
-    v-card-text
-      small {{post.short}}
-    v-card-actions
+    q-parallax(:src="post.poster" :height="150")
+    q-card-section.ellipsis-3-lines {{post.short}}
+    q-card-actions
       post-controls(:post="post")
 
 

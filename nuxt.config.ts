@@ -27,8 +27,7 @@ export default defineNuxtConfig({
         'nuxt-auth-utils',
         '@pinia/nuxt',
         '@nuxtjs/leaflet',
-        'vuetify-nuxt-module',
-        'nuxt-toast',
+        'nuxt-quasar-ui',
         '@nuxtjs/i18n'
     ],
     // mongoose: {
@@ -46,21 +45,10 @@ export default defineNuxtConfig({
     build: {
         transpile: ['vuetify'],
     },
-    vuetify: {
-        moduleOptions: {
-            prefixComposables: true
-        },
-        vuetifyOptions: {
-            icons: {
-                defaultSet: 'mdi',
-                sets: ['mdi', 'fa']
-            },
-            defaults: {
-                VBtn: {
-                    density: 'compact',
-                }
-            }
-        },
+    quasar:{
+        sassVariables: '~~/public/quazar.variables.sass',
+        plugins:['Notify'],
+        iconSet: 'mdi-v7',
     },
     vite: {
         optimizeDeps: {

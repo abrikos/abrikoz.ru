@@ -6,8 +6,8 @@ const {post} = defineProps<{ post: object }>()
 
 <template lang="pug">
 div.pa-2
-  h1 {{ post.title }}
-  div.bg-grey.pa-2.d-flex.justify-space-between.no-wrap
+  div.text-h4 {{ post.title }}
+  div.bg-grey.q-pa-sm.flex.justify-between.no-wrap
     strong {{post.short}}
     div.mx-2(v-if="post.poster")
       img.poster(:src="post.poster")
