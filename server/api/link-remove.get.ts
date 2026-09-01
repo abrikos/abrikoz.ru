@@ -2,5 +2,5 @@ export default defineEventHandler(async (event) => {
     const {user} = await getUserSession(event)
     if (!user) throw createError({status: 403, message: 'Доступ запрещён'})
     const { id } = getQuery(event)
-    return LinkModel.deleteOne({ _id: id, user })
+    return LinkModel.deleteOne({ _id: id, user }).catch(console.warn)
 })

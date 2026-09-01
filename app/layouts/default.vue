@@ -11,15 +11,15 @@ const menuItems = computed(() => {
     {label: 'Home', caption: '', icon: 'mdi-home', link: '/'},
     {label: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather'},
     {
-      label: 'Posts', children: [
-        {label: 'Add post', icon: 'mdi-playlist-plus', link: '/post-create', hide: !user.value},
-        {label: 'My posts', icon: 'mdi-text-account', link: '/post-my', hide: !user.value},
-        {label: 'Post view', icon: 'mdi-text-account', link: route.fullPath, hide: route.name !== 'post-view-id'},
-        {label: 'Post edit', icon: 'mdi-text-account', link: route.fullPath, hide: route.name !== 'post-edit-id'},
+      label: 'Posts', icon:'mdi-note', children: [
+        {label: 'Add post', icon: 'mdi-note-plus', link: '/post-create', hide: !user.value},
+        {label: 'My posts', icon: 'mdi-file-account', link: '/post-my', hide: !user.value},
+        {label: 'Post view', icon: 'mdi-file-eye', link: route.fullPath, hide: route.name !== 'post-view-id'},
+        {label: 'Post edit', icon: 'mdi-file-edit', link: route.fullPath, hide: route.name !== 'post-edit-id'},
       ]
     },
     {
-      label: 'Links', children: [
+      label: 'Links', icon:'mdi-link', children: [
         {label: 'All', icon: 'mdi-link-box', link: '/links-all'},
         {label: 'My', icon: 'mdi-link-lock', link: '/links-my', hide: !user.value},
         {label: 'Map', icon: 'mdi-map-legend', link: '/links-map'},
@@ -27,11 +27,11 @@ const menuItems = computed(() => {
       ]
     },
     {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
-    {label: 'Fiscal',  hide: !user.value, children: [
-        {label: 'Fiscal list', icon: 'mdi-map-legend', link: '/fiscal-list'},
-        {label: 'Fiscal goods', icon: 'mdi-map-legend', link: '/fiscal-goods'},
-        {label: 'Fiscal monthly', icon: 'mdi-map-legend', link: '/fiscal-monthly'},
-        {label: 'Upload', icon: 'mdi-map-legend', link: '/fiscal-upload'},
+    {label: 'Fiscal', icon:'mdi-finance', hide: !user.value, children: [
+        {label: 'Fiscal list', icon: 'mdi-list-box', link: '/fiscal-list'},
+        {label: 'Fiscal goods', icon: 'mdi-basket-fill', link: '/fiscal-goods'},
+        {label: 'Fiscal monthly', icon: 'mdi-finance', link: '/fiscal-monthly'},
+        {label: 'Upload', icon: 'mdi-upload-box', link: '/fiscal-upload'},
       ]},
   ].filter(i => !i.hide).map(i => {
     i.children = i.children ? i.children.filter(i1 => !i1.hide) : []
