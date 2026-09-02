@@ -66,3 +66,33 @@ export async function setSessionUser(id: string, event: H3Event, strategyUser: a
     }
 
 }
+
+export function minesweeperCheckCell(game: IMinesweeper, idx: number) {
+    game.turns.push(idx)
+    if (game.mines.includes(idx)) {
+        game.finished = -1
+        return
+    }
+    if (game.mines.length + game.turns.length === game.cellsCount) {
+        game.finished = 1
+        return;
+    }
+    const {row, col} = game.cell(idx)
+    const nearCells = [game.idx(row - 1, col - 1), game.idx(row - 1, col), game.idx(row - 1, col + 1), game.idx(row, col - 1), game.idx(row, col + 1), game.idx(row + 1, col - 1), game.idx(row + 1, col), game.idx(row + 1, col + 1),]
+        .filter(c => c >= 0)
+    let mines = 0
+    for (const i of nearCells) {
+        if (game.mines.includes(i)) {
+            mines++
+        }
+    }
+    if (mines) {
+        game.counts.push([idx, mines])
+    } else {
+        for (const i of nearCells) {
+            if (!game.turns.includes(i)) {
+                minesweeperCheckCell(game, i)
+            }
+        }
+    }
+}

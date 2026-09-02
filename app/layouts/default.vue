@@ -12,7 +12,7 @@ const menuItems = computed(() => {
     {label: 'Cabinet', caption: '', icon: 'mdi-badge-account', link: '/cabinet', hide: !user.value},
     {label: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather'},
     {
-      label: 'Posts', icon:'mdi-note', children: [
+      label: 'Posts', icon: 'mdi-note', children: [
         {label: 'Add post', icon: 'mdi-note-plus', link: '/post-create', hide: !user.value},
         {label: 'My posts', icon: 'mdi-file-account', link: '/post-my', hide: !user.value},
         {label: 'Post view', icon: 'mdi-file-eye', link: route.fullPath, hide: route.name !== 'post-view-id'},
@@ -20,7 +20,12 @@ const menuItems = computed(() => {
       ]
     },
     {
-      label: 'Links', icon:'mdi-link', children: [
+      label: 'Games', icon: 'mdi-gamepad', children: [
+        {label: 'Minesweeper', icon: 'mdi-mine', link: '/minesweeper'},
+      ]
+    },
+    {
+      label: 'Links', icon: 'mdi-link', children: [
         {label: 'All', icon: 'mdi-link-box', link: '/links-all'},
         {label: 'My', icon: 'mdi-link-lock', link: '/links-my', hide: !user.value},
         {label: 'Map', icon: 'mdi-map-legend', link: '/links-map'},
@@ -28,12 +33,14 @@ const menuItems = computed(() => {
       ]
     },
     {label: 'Territory', icon: 'mdi-map-legend', link: '/territory'},
-    {label: 'Fiscal', icon:'mdi-finance', hide: !user.value, children: [
+    {
+      label: 'Fiscal', icon: 'mdi-finance', hide: !user.value, children: [
         {label: 'Fiscal list', icon: 'mdi-list-box', link: '/fiscal-list'},
         {label: 'Fiscal goods', icon: 'mdi-basket-fill', link: '/fiscal-goods'},
         {label: 'Fiscal monthly', icon: 'mdi-finance', link: '/fiscal-monthly'},
         {label: 'Upload', icon: 'mdi-upload-box', link: '/fiscal-upload'},
-      ]},
+      ]
+    },
   ].filter(i => !i.hide).map(i => {
     i.children = i.children ? i.children.filter(i1 => !i1.hide) : []
     return i
@@ -54,7 +61,7 @@ async function login(provider: string) {
 watch(loggedIn, (isLoggedIn) => {
   if (isLoggedIn) {
     navigateTo('/cabinet')
-  }else{
+  } else {
     navigateTo('/')
   }
 })
