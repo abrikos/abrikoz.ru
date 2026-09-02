@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import {useLoaderStore} from "~/stores/loader";
+import langRu from 'quasar/lang/ru'
+import langEn from 'quasar/lang/en-GB'
+import {useQuasar} from 'quasar'
 
+const $q = useQuasar()
+
+// Set it globally
 const {locales, locale, setLocale} = useI18n()
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
@@ -66,7 +72,16 @@ watch(loggedIn, (isLoggedIn) => {
   }
 })
 
-const menuExpanded = ref(false)
+const menuExpanded = useCookie('menu-expanded', {default: () => ({})})
+
+function localize(locale: "en" | "ru") {
+  setLocale(locale)
+  if (locale === 'ru') {
+    $q.lang.set(langRu)
+  } else {
+    $q.lang.set(langEn)
+  }
+}
 
 </script>
 
@@ -102,7 +117,7 @@ const menuExpanded = ref(false)
         q-btn(icon="mdi-translate" :title="$t('Translate')" flat)
           q-menu
             q-list
-              q-item(clickable v-close-popup @click="setLocale(l.code)" v-for="l in availableLocales")
+              q-item(clickable v-close-popup @click="localize(l.code)" v-for="l in availableLocales")
                 q-item-section {{l.name}}
 
     q-drawer(v-model="drawer"  :breakpoint="1024"       show-if-above      bordered)
@@ -112,7 +127,7 @@ const menuExpanded = ref(false)
             q-item-section(avatar)
               q-icon(:name="item.icon")
             q-item-section {{$t(item.label)}}
-          q-expansion-item(v-else :icon="item.icon" :label="item.label" :xdisable="!item.children?.length"  dense dense-toggle group="somegroup" expand-separator)
+          q-expansion-item(v-else v-model="menuExpanded[item.label]" :icon="item.icon" :label="$t(item.label)" :xdisable="!item.children?.length"  dense dense-toggle group="somegroup" expand-separator)
             q-item-section
             q-item-section
               q-list(v-if="item.children?.length")
