@@ -66,6 +66,8 @@ watch(loggedIn, (isLoggedIn) => {
   }
 })
 
+const menuExpanded = ref(false)
+
 </script>
 
 <template lang="pug">
@@ -105,16 +107,20 @@ watch(loggedIn, (isLoggedIn) => {
 
     q-drawer(v-model="drawer"  :breakpoint="1024"       show-if-above      bordered)
       q-list(padding)
-        q-item.menu-section(clickable v-ripple v-for="item in menuItems" :to="item.link" :aria-label="$t(item.label)")
-          q-item-section(avatar v-if="item.icon")
-            q-icon(:name="item.icon" v-if="item.icon")
-          q-item-section {{$t(item.label)}}
-            q-list(v-if="item.children")
-              q-item(v-for="subItem in item.children" :to="subItem.link" :aria-label="$t(subItem.label)")
-                q-item-section(avatar)
-                  q-icon(:name="subItem.icon")
-                q-item-section {{$t(subItem.label)}}
-
+        div(v-for="item in menuItems")
+          q-item(v-if="!item.children?.length" clickable v-ripple :to="item.link" :aria-label="$t(item.label)")
+            q-item-section(avatar)
+              q-icon(:name="item.icon")
+            q-item-section {{$t(item.label)}}
+          q-expansion-item(v-else :icon="item.icon" :label="item.label" :xdisable="!item.children?.length"  dense dense-toggle group="somegroup" expand-separator)
+            q-item-section
+            q-item-section
+              q-list(v-if="item.children?.length")
+                q-item(v-for="subItem in item.children" :to="subItem.link" :aria-label="$t(subItem.label)")
+                  q-item-section(avatar)
+                    q-icon(:name="subItem.icon")
+                  q-item-section {{$t(subItem.label)}}
+          q-separator
     q-page-container
       q-page
         NuxtPage
