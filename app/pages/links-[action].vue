@@ -6,7 +6,9 @@ const route = useRoute()
 
 async function load(){
   allLinks.value = await useNuxtApp().$GET('/link-list')
-  myLinks.value = await useNuxtApp().$GET('/link-my')
+  if(loggedIn.value) {
+    myLinks.value = await useNuxtApp().$GET('/link-my')
+  }
 }
 onMounted(load)
 
