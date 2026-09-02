@@ -23,6 +23,7 @@ async function unsetStrategy(active: number) {
 </script>
 
 <template lang="pug">
+div(v-if="user")
   q-card.q-ma-sm(style="width:300px")
     q-toolbar
       span {{$t('Add login strategy')}}
@@ -35,7 +36,7 @@ async function unsetStrategy(active: number) {
     q-card-section
       q-btn(v-for="(s,i) in user.strategies" :label="s.strategy" @click="setStrategy(i)" :disable="i===user.active" )
 
-  q-card.q-ma-sm(style="width:300px" v-if="user.strategies.length > 1")
+  q-card.q-ma-sm(style="width:300px" v-if="user?.strategies.length > 1")
     q-toolbar
       span {{$t('Disable strategy for current user')}}
     q-card-section
