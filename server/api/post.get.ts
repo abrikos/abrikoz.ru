@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
         user: { id: string },
         published: boolean
     }
-    if (post?.user.id === user?.id || post?.published) {
+    if (post?.user?.id === user?.id || post?.published) {
         return post
     }
     if (!post) throw createError({status: 404, message: 'Not found'})

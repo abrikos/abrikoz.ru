@@ -7,6 +7,7 @@ export interface IUser extends mongoose.Document {
     strategies: object[]
     active: number
     name: string
+    admin: boolean
 }
 
 const schema = new mongoose.Schema<IUser>({
@@ -31,6 +32,12 @@ schema.virtual('avatar_url')
     .get(function () {
         if (!this.strategies?.length) return 'None'
         return this.strategies[this.active].avatar_url;
+    })
+
+schema.virtual('admin')
+    .get(function () {
+        if (!this.strategies?.length) return
+        return this.strategies.map((s:any)=>s.email).includes(process.env.ADMIN_EMAIL);
     })
 
 

@@ -10,7 +10,7 @@ const deletePost = async () => {
 </script>
 
 <template lang="pug">
-  div.pa-3.d-flex.justify-space-between.align-center(v-if="user?.id === post?.user?.id")
+  div.pa-3.d-flex.justify-space-between.align-center(v-if="user?.id === post?.user?.id || user?.admin")
     q-btn(icon="mdi-pencil" :to="`/post-edit-${post.id}`")
     span.text-red(v-if="!post.published") {{$t('Not published')}}
     button-confirm(icon="mdi-delete" color="red" :message="$t('Delete post')" :action="deletePost")
