@@ -2,6 +2,7 @@
   "Cabinet": "Кабинет",
   "Add login strategy": "Добавить стратегию аутентификации",
   "Set active strategy for current user": "Установить активную стратегию",
+  "Disable strategy for current user": "Отменить привязку стратегии",
   "Fiscal": "Чеки",
   "Fiscal goods": "Товары",
   "Fiscal list": "Список чеков",
