@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import noAvatar from '~/assets/no-avatar.png'
+import type {IUser} from "#server/models/user.model.ts";
 interface Props {
-  user?: object;
+  user?: IUser;
 }
 const {user} = defineProps<Props>()
 const avatar = computed(() => {
-  return user?.avatar || noAvatar
+  return user?.avatar_url || noAvatar
 })
 
 </script>
@@ -13,7 +14,7 @@ const avatar = computed(() => {
 <template lang="pug">
   q-avatar(v-if="user")
     img(:src="avatar")
-    q-tooltip {{user?.displayName}}
+    q-tooltip {{user?.name}}
 </template>
 
 <style scoped lang="sass">

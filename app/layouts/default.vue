@@ -9,6 +9,7 @@ const route = useRoute()
 const menuItems = computed(() => {
   return [
     {label: 'Home', caption: '', icon: 'mdi-home', link: '/'},
+    {label: 'Cabinet', caption: '', icon: 'mdi-badge-account', link: '/cabinet', hide: !user.value},
     {label: 'Weather', caption: 'Yakutsk 5 days weather', icon: 'mdi-weather-cloudy', link: '/weather'},
     {
       label: 'Posts', icon:'mdi-note', children: [
@@ -50,6 +51,14 @@ async function login(provider: string) {
   openInPopup(`/api/auth/${provider}`, {width: 600, height: 600})
 }
 
+watch(loggedIn, (isLoggedIn) => {
+  if (isLoggedIn) {
+    navigateTo('/cabinet')
+  }else{
+    navigateTo('/')
+  }
+})
+
 </script>
 
 <template lang="pug">
@@ -66,6 +75,8 @@ async function login(provider: string) {
               user-card(:user="user" )
               q-menu
                 q-list
+                  q-item(clickable v-close-popup to="/cabinet" )
+                    q-item-section Cabinet
                   q-item(clickable v-close-popup @click="clear" )
                     q-item-section Logout
 

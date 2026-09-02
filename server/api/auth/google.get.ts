@@ -1,12 +1,12 @@
 //User.find().then(console.log);
 
+import {setSessionUser} from "#server/utils/functions.ts";
+
 export default defineOAuthGoogleEventHandler({
     async onSuccess(event, {user}) {
-        const loggedUser = await UserModel.findOneAndUpdate({email: user.email}, {$set: user}, {
-            upsert: true,
-            returnDocument: 'after'
-        })
-        await setUserSession(event, {user: loggedUser})
+        user.avatar_url = user.picture
+        user.strategy = 'google'
+        await setSessionUser(user.sub, event, user)
         return sendRedirect(event, '/')
     }
 })

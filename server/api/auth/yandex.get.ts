@@ -1,12 +1,15 @@
-//User.deleteMany().then(console.log);
+UserModel.find().then(console.log);
+//UserModel.deleteMany().then(console.log);
+// FiscalModel.deleteMany().then(console.log);
+// GoodModel.deleteMany().then(console.log);
+import {setSessionUser} from "#server/utils/functions.ts";
+
 export default defineOAuthYandexEventHandler({
     async onSuccess(event, {user}) {
         user.avatar_url = `https://avatars.mds.yandex.net/get-yapic/${user.default_avatar_id}/islands-50`
-        const loggedUser = await UserModel.findOneAndUpdate({username: user.login}, {$set: user}, {
-            upsert: true,
-            returnDocument: 'after'
-        })
-        await setUserSession(event, {user: loggedUser})
+        user.email = user.default_email
+        user.strategy = 'yandex'
+        await setSessionUser(user.id, event, user)
         return sendRedirect(event, '/')
     }
 })
