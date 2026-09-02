@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { EventEmitter } from 'events'
+import {EventEmitter} from 'events'
 
 // Increase the global limit from 10 to 20 (or higher if needed)
 EventEmitter.defaultMaxListeners = 200
@@ -45,10 +45,18 @@ export default defineNuxtConfig({
     build: {
         transpile: ['vuetify'],
     },
-    quasar:{
+    quasar: {
         sassVariables: '~~/public/quazar.variables.sass',
-        plugins:['Notify'],
+        plugins: ['Notify'],
         iconSet: 'mdi-v7',
+        components: {
+            defaults: {
+                QTable: {
+                    dense: true,
+                    pagination: {rowsPerPage: 20}
+                },
+            }
+        }
     },
     vite: {
         optimizeDeps: {
