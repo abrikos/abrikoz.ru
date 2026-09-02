@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from "moment";
 
 const Schema = mongoose.Schema;
 const name = 'minesweeper';
@@ -18,6 +19,7 @@ export interface IMinesweeper {
     counts: Object[]
     finished: number
     createdAt: Date
+    updatedAt: Date
 }
 
 const schema = new Schema<IMinesweeper>({
@@ -32,10 +34,26 @@ const schema = new Schema<IMinesweeper>({
 
     },
     {
-        timestamps: {createdAt: 'createdAt'},
+        timestamps: true,
         toObject: {virtuals: true},
         toJSON: {virtuals: true}
     });
+
+schema.virtual('date')
+    .get(function () {
+        return moment(this.createdAt).format('YYYY-MM-DD HH:mm:ss');
+    })
+
+schema.virtual('playTime')
+    .get(function () {
+        const dateA = moment(this.createdAt)
+        const dateB = moment(this.updatedAt);
+        const diffDuration = moment.duration(dateB.diff(dateA))
+        const days = Math.floor(diffDuration.asDays()); // Use asDays() to capture absolute total days
+        const hours = String(diffDuration.hours()).padStart(2, '0');
+        const minutes = String(diffDuration.minutes()).padStart(2, '0');
+        return {days, hours, minutes};
+    })
 
 schema.virtual('cellsCount')
     .get(function () {

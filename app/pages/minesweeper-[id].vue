@@ -91,7 +91,7 @@ const smileIcon = computed(() => {
 <template lang="pug">
   q-card(v-if="game" style="width:500px")
     q-toolbar
-      q-toolbar-title {{$t('Minesweeper')}} {{game.createdAt}}
+      q-toolbar-title {{$t('Minesweeper')}} {{game.date}}
     q-card-section.flex.justify-center
       div#field(:style="{width:fieldSize+'px', padding: fieldPadding+'px'}")
         div#header(:style="{borderWidth:fieldBorder+'px'}")
@@ -105,6 +105,7 @@ const smileIcon = computed(() => {
           div#miner
             div.row(v-for="row of rowsArray" :key="row")
               div.cell(v-for="col of colsArray" :key="col" @click="cellClick(row,col)" :class="cellClass(row,col)" :style="cellStyle(row,col)") {{getCount(row,col)}}
+    q-card-section
       div.text-red(v-if="game.finished===-1") {{$t('Game over')}}
       div.text-green(v-if="game.finished===1") {{$t('Win')}}
 
