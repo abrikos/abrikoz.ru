@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import mine from './mine.svg'
+import mine from '../../public/mine.svg'
+import type {IMinesweeper} from "#server/models/minesweeper.model.ts";
 
 const {user} = useUserSession()
 const mineUrl = `url("${mine}")`
@@ -10,7 +11,8 @@ const rowsArray = ref()
 const colsArray = ref()
 const fieldSize = ref()
 const game = ref()
-async function load(){
+
+async function load() {
   game.value = await useNuxtApp().$GET(`/minesweeper?id=${route.params.id}`)
   rowsArray.value = Array(game.value.rows).fill(null).map((_, i) => i)
   colsArray.value = Array(game.value.cols).fill(null).map((_, i) => i)
@@ -61,16 +63,16 @@ async function cellClick(row: number, col: number) {
       time.value++
     }, 1000)
   }
-  const turn = await useNuxtApp().$POST(`/minesweeper?id=${game.value.id}`, {idx: idx(row, col)})
-  if (turn.finished) {
+  const turn = await useNuxtApp().$POST(`/minesweeper?id=${game.value.id}`, {idx: idx(row, col)}) as unknown as IMinesweeper
+  if (turn?.finished) {
     clearInterval(timer.value)
   }
   await load()
-  
+
 }
 
 async function restart() {
-  const newGame = await useNuxtApp().$PUT(`/minesweeper`, game.value)
+  const newGame = await useNuxtApp().$PUT(`/minesweeper`, game.value) as unknown as IMinesweeper
   await router.push(`/minesweeper-${newGame.id}`)
 }
 
@@ -87,24 +89,24 @@ const smileIcon = computed(() => {
 </script>
 
 <template lang="pug">
-q-card(v-if="game" style="width:500px")
-  q-toolbar
-    q-toolbar-title {{$t('Minesweeper')}} {{game.createdAt}}
-  q-card-section.flex.justify-center
-    div#field(:style="{width:fieldSize+'px', padding: fieldPadding+'px'}")
-      div#header(:style="{borderWidth:fieldBorder+'px'}")
-        div.counter {{time}}
-        div#smile(@click="restart")
-          //v-btn(:icon="smileIcon" size="x-small" color="yellow" )
-          q-icon(color="black" :name="smileIcon")
-            q-tooltip {{$t('Restart game')}}
-        div.counter {{game.turn}}
-      div#field-border(:style="{borderWidth:fieldBorder+'px'}")
-        div#miner
-          div.row(v-for="row of rowsArray" :key="row")
-            div.cell(v-for="col of colsArray" :key="col" @click="cellClick(row,col)" :class="cellClass(row,col)" :style="cellStyle(row,col)") {{getCount(row,col)}}
-    div.text-red(v-if="game.finished===-1") {{$t('Game over')}}
-    div.text-green(v-if="game.finished===1") {{$t('Win')}}
+  q-card(v-if="game" style="width:500px")
+    q-toolbar
+      q-toolbar-title {{$t('Minesweeper')}} {{game.createdAt}}
+    q-card-section.flex.justify-center
+      div#field(:style="{width:fieldSize+'px', padding: fieldPadding+'px'}")
+        div#header(:style="{borderWidth:fieldBorder+'px'}")
+          div.counter {{time}}
+          div#smile(@click="restart")
+            //v-btn(:icon="smileIcon" size="x-small" color="yellow" )
+            q-icon(color="black" :name="smileIcon")
+              q-tooltip {{$t('Restart game')}}
+          div.counter {{game.turn}}
+        div#field-border(:style="{borderWidth:fieldBorder+'px'}")
+          div#miner
+            div.row(v-for="row of rowsArray" :key="row")
+              div.cell(v-for="col of colsArray" :key="col" @click="cellClick(row,col)" :class="cellClass(row,col)" :style="cellStyle(row,col)") {{getCount(row,col)}}
+      div.text-red(v-if="game.finished===-1") {{$t('Game over')}}
+      div.text-green(v-if="game.finished===1") {{$t('Win')}}
 
 </template>
 
