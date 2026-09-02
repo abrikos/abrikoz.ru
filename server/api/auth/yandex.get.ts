@@ -1,4 +1,4 @@
-UserModel.find().then(console.log);
+//UserModel.find().then(console.log);
 //UserModel.deleteMany().then(console.log);
 // FiscalModel.deleteMany().then(console.log);
 // GoodModel.deleteMany().then(console.log);

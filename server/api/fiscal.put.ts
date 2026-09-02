@@ -1,4 +1,5 @@
 export default defineEventHandler(async (event) => {
+    await requireUserSession(event)
     const {user} = await getUserSession(event) as unknown as {user:{id:string}}
     if (!user) return
     let formData = await readMultipartFormData(event)
