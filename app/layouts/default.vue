@@ -8,6 +8,7 @@ const $q = useQuasar()
 
 // Set it globally
 const {locales, locale, setLocale} = useI18n()
+localizeQuasar(locale.value)
 const {loading} = storeToRefs(useLoaderStore())
 const {loggedIn, user, session, clear, openInPopup} = useUserSession()
 const route = useRoute()
@@ -27,7 +28,8 @@ const menuItems = computed(() => {
     },
     {
       label: 'Games', icon: 'mdi-gamepad', children: [
-        {label: 'Minesweeper', icon: 'mdi-mine', link: '/minesweeper'},
+        {label: 'Minesweeper list', icon: 'mdi-mine', link: '/minesweeper'},
+        {label: 'Play Minesweeper', icon: 'mdi-bomb', link: route.fullPath, hide: route.name !== 'minesweeper-id'},
       ]
     },
     {
@@ -76,6 +78,10 @@ const menuExpanded = useCookie('menu-expanded', {default: () => ({})})
 
 function localize(locale: "en" | "ru") {
   setLocale(locale)
+  localizeQuasar(locale)
+}
+
+function localizeQuasar(locale: string) {
   if (locale === 'ru') {
     $q.lang.set(langRu)
   } else {
