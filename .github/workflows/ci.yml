@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+      - uses: actions/checkout@v4
+
+      - name: Disable libsecret credential helper
+      - run: git config --global --unset credential.helper
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
