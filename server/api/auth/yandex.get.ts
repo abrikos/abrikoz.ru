@@ -10,7 +10,6 @@ export default defineOAuthYandexEventHandler({
         user.email = user.default_email
         user.strategy = 'yandex'
         await setSessionUser(user.id, event, user)
-        console.log(10)
         return sendRedirect(event, '/')
     }
 })
