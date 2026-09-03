@@ -39,6 +39,7 @@ export async function getSeoMeta(url: string) {
 
 export async function setSessionUser(id: string, event: H3Event, strategyUser: any) {
     const {user} = await getUserSession(event) as unknown as { user: { ids: string[], id: string } }
+    console.warn('Session used',  user)
     if (!user) {
         const found = await UserModel.findOne({ids: {$in: [id]}})
         if (!found) {
@@ -52,7 +53,6 @@ export async function setSessionUser(id: string, event: H3Event, strategyUser: a
     const found = await UserModel.findOne({ids: {$in: [id]}})
     if (found) {
         if (found.id !== user.id) {
-            console.warn('Strategy used', found, user)
             throw createError({status: 406, message: 'This strategy is occupied by another user'})
         }
         await setUserSession(event, {user: found})
