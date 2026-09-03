@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {useLoaderStore} from "~/stores/loader";
-import langRu from 'quasar/lang/ru'
-import langEn from 'quasar/lang/en-GB'
+import langRu from 'quasar/lang/ru.js'
+import langEn from 'quasar/lang/en-GB.js'
 import {useQuasar} from 'quasar'
 
 const $q = useQuasar()
