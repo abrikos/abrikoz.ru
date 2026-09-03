@@ -30,6 +30,8 @@ const menuItems = computed(() => {
       label: 'Games', icon: 'mdi-gamepad', children: [
         {label: 'Minesweeper list', icon: 'mdi-mine', link: '/minesweeper'},
         {label: 'Play Minesweeper', icon: 'mdi-bomb', link: route.fullPath, hide: route.name !== 'minesweeper-id'},
+        {label: 'Sea Battle', icon: 'mdi-sword-cross', link: '/seabattle'},
+        {label: 'Tic-Tac-Toe', icon: 'mdi-grid', link: '/tictactoe'},
       ]
     },
     {
@@ -50,7 +52,7 @@ const menuItems = computed(() => {
       ]
     },
   ].filter(i => !i.hide).map(i => {
-    i.children = i.children ? i.children.filter(i1 => !i1.hide) : []
+    i.children = i.children ? i.children.filter((i1:any )=> !i1.hide) : []
     return i
   })
 })
