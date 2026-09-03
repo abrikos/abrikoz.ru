@@ -51,7 +51,10 @@ export async function setSessionUser(id: string, event: H3Event, strategyUser: a
     }
     const found = await UserModel.findOne({ids: {$in: [id]}})
     if (found) {
-        if (found.id !== user.id) throw createError({status: 406, message: 'This strategy is occupied by another user'})
+        if (found.id !== user.id) {
+            console.warn('Strategy used', found, user)
+            throw createError({status: 406, message: 'This strategy is occupied by another user'})
+        }
         await setUserSession(event, {user: found})
     } else {
         const logged = await UserModel.findById(user.id)
